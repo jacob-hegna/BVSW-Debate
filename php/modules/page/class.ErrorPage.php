@@ -19,7 +19,7 @@ class ErrorPage extends Page {
         $content = 
 '<div class="jumbotron">
 <p>Error (' . $error . '): ' . $details . '</p>' .
-'<a class="btn btn-primary btn-lg" href="http://homepage-jacobhegna.rhcloud.com/?p=home">Back to home</a>
+'<a class="btn btn-primary btn-lg" href="?p=home">Back to home</a>
 </div>';
         echo $content;
     }
