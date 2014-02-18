@@ -30,8 +30,10 @@ abstract class Page {
 
     public function writePageEnd() {
         $pageEnd = 
-'   <div class="container">
-        <p class="credit">The BVSW homepage site is being developed by <a href="http://homepage-jacobhegna.rhcloud.com/">Jacob Hegna</a></p>
+'   <div id="footer">
+        <div class="container" id="creditContainer">
+            <p class="credit">The BVSW homepage site is being developed by <a href="http://homepage-jacobhegna.rhcloud.com/">Jacob Hegna</a></p>
+        </div>
     </div>
     <script src="assets/js/jquery-2.1.0.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
