@@ -12,6 +12,7 @@ abstract class Page {
     <meta charset="utf-8">
     <title>BVSW Debate</title>
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/theme.css" rel="stylesheet">
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
