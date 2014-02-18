@@ -37,7 +37,7 @@ abstract class Page {
     </div>
     <div id="footer">
         <div class="container" id="creditContainer">
-            <p class="credit">The BVSW homepage site is being developed by <a href="http://homepage-jacobhegna.rhcloud.com/">Jacob Hegna</a></p>
+            <p class="credit">The BVSW homepage site is being developed by <a href="http://homepage-jacobhegna.rhcloud.com/" target="_blank">Jacob Hegna</a></p>
         </div>
     </div>
     <script src="assets/js/jquery-2.1.0.min.js"></script>
