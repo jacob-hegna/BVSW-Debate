@@ -22,6 +22,8 @@ abstract class Page {
             </div>
         </div>
     </div>
+    <div id="wrap">
+        <div class="container">
 ';
         echo $pageStart;
     }
@@ -30,7 +32,9 @@ abstract class Page {
 
     public function writePageEnd() {
         $pageEnd = 
-'   <div id="footer">
+'       </div>
+    </div>
+    <div id="footer">
         <div class="container" id="creditContainer">
             <p class="credit">The BVSW homepage site is being developed by <a href="http://homepage-jacobhegna.rhcloud.com/">Jacob Hegna</a></p>
         </div>

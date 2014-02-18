@@ -4,6 +4,13 @@ body {
 html, body{
     height: 100%;
 }
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -31px;
+    padding: 0 0 60px;
+}
 #footer {
     min-height: 30px;
     background: rgba(51, 51, 51, 0.30);
