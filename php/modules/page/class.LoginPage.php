@@ -6,7 +6,9 @@ class LoginPage extends Page {
 
     public function writePageContent() {
         $content = 
-'';
+'<div class="jumbotron">
+    <h1>Login</h1>
+</div>';
 
         echo $content;
     }
