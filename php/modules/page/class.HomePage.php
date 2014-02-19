@@ -18,7 +18,10 @@ class HomePage extends Page {
         }
 
         $content .=
-'</div>';
+'</div>
+<center>
+<img src="static/img/splash.jpg" width="600px"</img>
+</center>';
         echo $content;
     }
 
