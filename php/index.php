@@ -26,10 +26,10 @@ switch($_GET['p']) {
         break;
 
     case "login":
-        require("modules/page/class.LoginPage.php");
-        $page = new LoginPage();
-        $page->writePage();
-        break;
+        //require("modules/page/class.LoginPage.php");
+        //$page = new LoginPage();
+        //$page->writePage();
+        //break;
 
     default:
         $page = new ErrorPage("404");
