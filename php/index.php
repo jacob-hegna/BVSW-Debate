@@ -6,6 +6,8 @@ require("modules/class.Page.php");
 require("modules/page/class.ErrorPage.php");
 require("modules/page/class.HomePage.php");
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 //TODO: Change the admin account lol
 $database = new medoo([
