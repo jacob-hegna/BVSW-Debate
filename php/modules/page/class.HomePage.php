@@ -8,9 +8,17 @@ class HomePage extends Page {
         $content = 
 '<div class="jumbotron">
     <h1>BVSW Debate</h1>
-    <h3>#NoDaysOff</h3>
-</div>';
+    <h3>#NoDaysOff</h3>';
 
+        if(array_key_exists("loggedin", $_SESSION)) {
+            if($_SESSION['loggedin']) {
+                $content .=
+'   <p>' . $_SESSION['username'] . '</p>';
+            }
+        }
+
+        $content .=
+'</div>';
         echo $content;
     }
 
