@@ -30,10 +30,10 @@ class LoginPage extends Page {
     }
 
     public function writePage() {
-        $this->logic();
-        $this->writePageStart();
-        $this->writePageContent();
-        $this->writePageEnd();
+        self::logic();
+        self::writePageStart();
+        self::writePageContent();
+        self::writePageEnd();
     }
 }
 ?>
