@@ -40,8 +40,8 @@ abstract class Page {
             <p class="credit">The BVSW homepage site is being developed by <a href="http://homepage-jacobhegna.rhcloud.com/" target="_blank">Jacob Hegna</a>.  The <a href="https://github.com/jacob-hegna/BVSW-Debate/" target="_blank">source code</a> is hosted on Github</p>
         </div>
     </div>
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery-2.1.0.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
 </body>
 </html>';
         echo $pageEnd;
