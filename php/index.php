@@ -1,17 +1,18 @@
 <?php
-//ob_start();
-//session_start();
-//require("modules/medoo.min.php");
+ob_start();
+session_start();
+require("modules/medoo.min.php");
 require("modules/class.Page.php");
 require("modules/page/class.ErrorPage.php");
-/*
+require("modules/page/class.HomePage.php");
+
 $database = new medoo([
     'database_type' => 'mysql',
     'database_name' => 'bvswdebate',
     'server' => 'localhost',
     'username' => 'adminqx8tzxJ',
     'password' => '8Zb9h8xitpfy']);
-*/
+
 if(!array_key_exists("p", $_GET)) {
     $page = new HomePage();
     $page->writePage();
@@ -20,7 +21,6 @@ if(!array_key_exists("p", $_GET)) {
 
 switch($_GET['p']) {
     case "home":
-        require("modules/page/class.HomePage.php");
         $page = new HomePage();
         $page->writePage();
         break;
@@ -36,5 +36,5 @@ switch($_GET['p']) {
         $page->writePage();
         break;
 }
-//ob_end_flush();
+ob_end_flush();
 ?>
