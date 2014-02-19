@@ -4,6 +4,18 @@ class LoginPage extends Page {
         parent::__construct();
     }
 
+    public function logic() {
+        $user = $_POST['username'];
+        $pass = $_POST['password'];
+        global $database;
+        $userRow = $database->select('accounts', [
+            'password', 'id'], [
+            'username'=>$user]);
+        if (hash('sha256', $pass) === $userRow[0]['password']) {
+            $_SESSION['loggedin'] = true;
+        }
+    }
+
     public function writePageContent() {
         $content = 
 '<div class="jumbotron">
@@ -14,14 +26,14 @@ class LoginPage extends Page {
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
 </div>';
-
         echo $content;
     }
 
     public function writePage() {
-        self::writePageStart();
-        self::writePageContent();
-        self::writePageEnd();
+        $this->logic();
+        $this->writePageStart();
+        $this->writePageContent();
+        $this->writePageEnd();
     }
 }
 ?>
