@@ -6,6 +6,7 @@ require("modules/class.Page.php");
 require("modules/page/class.ErrorPage.php");
 require("modules/page/class.HomePage.php");
 
+// Enable errors for openshift
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -14,8 +15,8 @@ $database = new medoo([
     'database_type' => 'mysql',
     'database_name' => 'bvswdebate',
     'server' => 'localhost',
-    'username' => 'admin',
-    'password' => 'admin']);
+    'username' => 'adminqx8tzxJ',
+    'password' => '8Zb9h8xitpfy']);
 
 if(!array_key_exists("p", $_GET)) {
     $page = new HomePage();
