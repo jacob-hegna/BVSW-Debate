@@ -9,7 +9,6 @@ class HomePage extends Page {
 '<div class="jumbotron">
     <h1>BVSW Debate</h1>
     <h3>#NoDaysOff</h3>
-    ' . $_SESSION['loggedin'] ? $_SESSION['username'] : '' . '
 </div>';
 
         echo $content;
