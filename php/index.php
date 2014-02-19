@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 $database = new medoo([
     'database_type' => 'mysql',
     'database_name' => 'bvswdebate',
-    'server' => 'localhost',
+    'server' => '127.9.133.130',
     'username' => 'adminqx8tzxJ',
     'password' => '8Zb9h8xitpfy']);
 
