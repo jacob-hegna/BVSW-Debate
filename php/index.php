@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-//require("modules/medoo.min.php");
+require("modules/medoo.min.php");
 require("modules/class.Page.php");
 require("modules/page/class.ErrorPage.php");
 require("modules/page/class.HomePage.php");
