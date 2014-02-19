@@ -1,6 +1,6 @@
 <?php
-ob_start();
-session_start();
+//ob_start();
+//session_start();
 require("modules/medoo.min.php");
 require("modules/class.Page.php");
 require("modules/page/class.ErrorPage.php");
@@ -36,5 +36,5 @@ switch($_GET['p']) {
         $page->writePage();
         break;
 }
-ob_end_flush();
+//ob_end_flush();
 ?>
