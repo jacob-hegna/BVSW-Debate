@@ -6,17 +6,12 @@ require("modules/class.Page.php");
 require("modules/page/class.ErrorPage.php");
 require("modules/page/class.HomePage.php");
 
-// Enable errors for openshift
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-//TODO: Change the admin account lol
 $database = new medoo([
     'database_type' => 'mysql',
     'database_name' => 'bvswdebate',
-    'server' => '127.9.133.130',
-    'username' => 'adminqx8tzxJ',
-    'password' => '8Zb9h8xitpfy']);
+    'server' => 'localhost',
+    'username' => 'jacob',
+    'password' => 'test']);
 
 if(!array_key_exists("p", $_GET)) {
     $page = new HomePage();
@@ -30,9 +25,21 @@ switch($_GET['p']) {
         $page->writePage();
         break;
 
+    case "tournaments":
+        require("modules/page/class.TournamentsPage.php");
+        $page = new TournamentsPage();
+        $page->writePage();
+        break;
+
     case "login":
         require("modules/page/class.LoginPage.php");
         $page = new LoginPage();
+        $page->writePage();
+        break;
+
+    case "register":
+        require("modules/page/class.RegisterPage.php");
+        $page = new RegisterPage();
         $page->writePage();
         break;
 
