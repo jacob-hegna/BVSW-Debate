@@ -9,9 +9,9 @@ require("modules/page/class.HomePage.php");
 $database = new medoo([
     'database_type' => 'mysql',
     'database_name' => 'bvswdebate',
-    'server' => 'localhost',
-    'username' => 'jacob',
-    'password' => 'test']);
+    'server' => '127.9.133.130',
+    'username' => 'adminqx8tzxJ',
+    'password' => '8Zb9h8xitpfy']);
 
 if(!array_key_exists("p", $_GET)) {
     $page = new HomePage();

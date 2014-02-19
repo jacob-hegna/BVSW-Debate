@@ -19,6 +19,7 @@ abstract class Page {
         <div class="container">
             <div class="collapse navbar-collapse">
                 <a href="?p=home" class="navbar-brand">BVSW Debate</a>
+                <a href="?p=tournaments" class="btn btn-default navbar-btn">Tournaments</a>
                 <a href="?p=login" class="btn btn-default navbar-btn pull-right">Login</a>
             </div>
         </div>
