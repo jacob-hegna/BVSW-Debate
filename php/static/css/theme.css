@@ -29,3 +29,6 @@ html, body{
     margin: 5px 0;
     color: rgb(153, 153, 153);
 }
+.jumbotron {
+    text-align: center;
+}
