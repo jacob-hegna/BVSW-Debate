@@ -19,9 +19,24 @@ abstract class Page {
         <div class="container">
             <div class="collapse navbar-collapse">
                 <a href="?p=home" class="navbar-brand">BVSW Debate</a>
-                <a href="?p=tournaments" class="btn btn-default navbar-btn">Tournaments</a>
-                <a href="?p=login" class="btn btn-default navbar-btn pull-right">Login</a>
-            </div>
+                <a href="?p=tournaments" class="btn btn-default navbar-btn">Tournaments</a>';
+
+        if(array_key_exists("loggedin", $_SESSION)) {
+            if($_SESSION['loggedin'] == true) {
+                $pageStart .=
+'               <a class="btn btn-default navbar-btn pull-right" href="?p=logout">Log out</button>
+                <a href="?p=profile" class="btn btn-default navbar-btn pull-right">' . $_SESSION['first'] . '</a>';
+            } else {
+                $pageStart .=
+'               <a href="?p=login" class="btn btn-default navbar-btn pull-right">Login</a>';
+            }
+        } else {
+            $pageStart .=
+'               <a href="?p=login" class="btn btn-default navbar-btn pull-right">Login</a>';
+        } 
+
+        $pageStart .=
+'           </div>
         </div>
     </div>
     <div id="wrap">

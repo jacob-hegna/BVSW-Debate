@@ -7,32 +7,22 @@ class LoginPage extends Page {
     public function logic() {
 
         if(array_key_exists("email", $_POST) && array_key_exists("password", $_POST)) {
-            $user = $_POST['email'];
+            global $database;
+
+            $email = $_POST['email'];
             $pass = $_POST['password'];
 
-            $userRow = $database->select('accounts', [
-                'password', 'id'], [
-                'email'=>$user]);
+            $userPass = $database->get('accounts', 'password', ['username' => $user]);
 
-            if (hash('sha256', $pass) === $userRow[0]['password']) {
+            if (hash('sha256', $pass) === $userPass) {
                 $_SESSION['loggedin'] = true;
-                $_SESSION['email'] = $user;
-                echo'<div class="jumbotron"><h1>FUCKYOUPHP</h1></div>';
+                $_SESSION['email'] = $email;
+                $_SESSION['first'] = $database->get('accounts', 'first', ['username' => $user]);
+                $_SESSION['last'] = $database->get('accounts', 'last', ['username' => $user]);
+                $_SESSION['studentid'] = $database->get('accounts', 'student-id', ['username' => $user]);
+                header("location: ?p=home");
             }
         }
-
-        /*        
-        $user = $_POST['username'];
-        $pass = $_POST['password'];
-        global $database;
-        $userRow = $database->select('accounts', [
-            'password', 'id'], [
-            'username'=>$user]);
-        if (hash('sha256', $pass) === $userRow[0]['password']) {
-            $_SESSION['loggedin'] = true;
-            $_SESSION['username'] = $user;
-        }
-        */
     }
 
     public function writePageContent() {
@@ -42,9 +32,9 @@ class LoginPage extends Page {
     <form method="post">
         <input type="email" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
         <input type="password" name="password" class="form-control" placeholder="Password" required="">
-        <div class="btn-group btn-group-justified" style="margin-top: 10px;">
-            <a class="btn btn-lg btn-primary btn-block" type="submit">Sign in</a>
-            <a class="btn btn-lg btn-primary btn-block" href="?p=register">Register</a>
+        <div class="btn-group btn-group-justified" style="margin-top: 0px;">
+            <button style="width:100%;" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <a style="width:50%;" class="btn btn-lg btn-primary btn-block" href="?p=register">Register</a>
         </div>
     </form>
 </div>';

@@ -6,6 +6,8 @@ require("modules/class.Page.php");
 require("modules/page/class.ErrorPage.php");
 require("modules/page/class.HomePage.php");
 
+$_POST['loggedin'] = false;
+
 $database = new medoo([
     'database_type' => 'mysql',
     'database_name' => 'bvswdebate',
@@ -31,10 +33,22 @@ switch($_GET['p']) {
         $page->writePage();
         break;
 
+    case "profile":
+        require("modules/page/class.ProfilePage.php");
+        $page = new ProfilePage();
+        $page->writePage();
+        break;
+
     case "login":
         require("modules/page/class.LoginPage.php");
         $page = new LoginPage();
         $page->writePage();
+        break;
+
+    case "logout":
+        session_unset();
+        session_destroy();
+        header('location: ?p=home');
         break;
 
     case "register":

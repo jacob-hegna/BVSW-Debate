@@ -1,18 +1,17 @@
 <?php
-class HomePage extends Page {
+class ProfilePage extends Page {
     public function __construct() {
         parent::__construct();
     }
 
     public function writePageContent() {
+        global $database;
+
         $content = 
 '<div class="jumbotron">
-    <h1>BVSW Debate</h1>
-    <h3>#NoDaysOff</h3>
+    <h1>' . $_SESSION['first'] . ' ' . $_SESSION['last'] . '</h1>
 </div>
-<center>
-    <img src="static/img/splash.jpg" width="600px"</img>
-</center>';
+';
         echo $content;
     }
 

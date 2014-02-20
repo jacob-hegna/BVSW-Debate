@@ -24,7 +24,8 @@ class TournamentsPage extends Page {
             $content .=
 '       </tbody>    
     </table>
-</div>';
+</div>
+';
         echo $content;
     }
 

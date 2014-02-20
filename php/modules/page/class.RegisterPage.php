@@ -8,9 +8,11 @@ class RegisterPage extends Page {
         if(array_key_exists("email", $_POST) && array_key_exists("password", $_POST) && array_key_exists("studentid", $_POST)) {
             global $database;
             $database->insert("accounts", [
-                "username" => $_POST['email'],
-                "password" => $_POST['password'],
-                "student-id" => $_POST['studentid']
+                "email" => $_POST['email'],
+                "password" => hash('sha256', $_POST['password']),
+                "student-id" => $_POST['studentid'],
+                "first" => $_POST['first'],
+                "last" => $_POST['last']
             ]);
         }
     }
@@ -20,12 +22,12 @@ class RegisterPage extends Page {
 '<div class="jumbotron">
     <h1>Register</h1>
     <form class="form-signin" role="form" method="post">
-        <input name="email" class="form-control" placeholder="Email address" required="" autofocus="">
-        <input name="password" class="form-control" placeholder="Password" required="">
+        <input type="email" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input type="password" name="password" class="form-control" placeholder="Password" required="">
         <input name="studentid" class="form-control" placeholder="Student ID" required="">
-        <div class="btn-group btn-group-justified" style="margin-top: 10px;">
-            <a class="btn btn-lg btn-primary btn-block" type="submit">Register</a>
-        </div>
+        <input name="first" class="form-control" placeholder="First name" required="">
+        <input name="last" class="form-control" placeholder="Last name" required="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
     </form>
 </div>';
         echo $content;
