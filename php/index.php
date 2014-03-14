@@ -50,15 +50,25 @@ switch($_GET['p']) {
         break;
 
     case "members":
-        require("../modules/page/class.MemberPage.php");
-        $page = new MemberPage();
-        $page->writePage();
+        if($_SESSION['loggedin']) {
+            require("../modules/page/class.MemberPage.php");
+            $page = new MemberPage();
+            $page->writePage();
+        } else {
+            $page = new ErrorPage('403');
+            $page->writePage();
+        }
         break;
 
     case "profile":
-        require("../modules/page/class.ProfilePage.php");
-        $page = new ProfilePage();
-        $page->writePage();
+        if($_SESSION['loggedin']) {
+            require("../modules/page/class.ProfilePage.php");
+            $page = new ProfilePage();
+            $page->writePage();
+        } else {
+            $page = new ErrorPage('403');
+            $page->writePage();
+        }
         break;
 
     case "login":

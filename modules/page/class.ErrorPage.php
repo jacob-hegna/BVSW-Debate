@@ -8,6 +8,10 @@ class ErrorPage extends Page {
         global $error, $details;
         $error = $ERROR;
         switch($error) {
+            case 403:
+                $this->details = "Forbidden, You do not have the credentials to access this page.";
+                break;
+
             case 404:
                 $details = "Page not found.";
                 break;
