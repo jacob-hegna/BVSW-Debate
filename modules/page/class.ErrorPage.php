@@ -6,7 +6,7 @@ class ErrorPage extends Page {
     public function __construct($ERROR) {
         parent::__construct();
         $this->error = $ERROR;
-        switch($error) {
+        switch($this->error) {
             case 403:
                 $this->details = "Forbidden, You do not have the credentials to access this page.";
                 break;
