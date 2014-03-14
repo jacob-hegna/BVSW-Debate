@@ -12,8 +12,8 @@ require("../modules/class.Page.php");
 require("../modules/page/class.HomePage.php");
 require("../modules/page/class.ErrorPage.php");
 
-if(!array_key_exists('loggedin', $_POST)) {
-    $_POST['loggedin'] = false;
+if(!array_key_exists('loggedin', $_SESSION)) {
+    $_SESSION['loggedin'] = false;
 }
 /*
 $database = new medoo([
