@@ -5,24 +5,22 @@ class ErrorPage extends Page {
 
     public function __construct($ERROR) {
         parent::__construct();
-        global $error, $details;
-        $error = $ERROR;
+        $this->error = $ERROR;
         switch($error) {
             case 403:
                 $this->details = "Forbidden, You do not have the credentials to access this page.";
                 break;
 
             case 404:
-                $details = "Page not found.";
+                $this->details = "Page not found.";
                 break;
         }
     }
 
     public function writePageContent() {
-        global $error, $details;
         $content = 
 '<div class="jumbotron">
-<p>Error (' . $error . '): ' . $details . '</p>' .
+<p>Error (' . $this->error . '): ' . $this->details . '</p>' .
 '<a class="btn btn-primary btn-lg" href="?p=home">Back to home</a>
 </div>';
         echo $content;
