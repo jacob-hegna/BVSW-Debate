@@ -21,10 +21,11 @@ class MemberPage extends Page {
 
             foreach($database->select('accounts', '*') as $i) {
                 $content .=
-'            <td>' . $i['first'] . ' ' . $i['last'] . ' <span class="label label-primary">' . Util::getRank($i['rank']) . '</span></td>
+'           <tr> 
+            <td>' . $i['first'] . ' ' . $i['last'] . ' <span class="label label-primary">' . Util::getRank($i['rank']) . '</span></td>
             <td>' . $i['email'] . '</td>
             ' . (Util::getUser($_SESSION['email'])['rank'] >= 2 ? '<td>' . $i['student-id'] . '</td>' : '') . '
-            <td>' . Util::formatPhoneNum($i['number']) . '</td>';
+            <td>' . Util::formatPhoneNum($i['number']) . '</td></tr>';
             }
 
             $content .=
