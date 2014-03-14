@@ -5,22 +5,23 @@ class LoginPage extends Page {
     }
 
     public function logic() {
-
         if(array_key_exists("email", $_POST) && array_key_exists("password", $_POST)) {
             global $database;
 
             $email = $_POST['email'];
             $pass = $_POST['password'];
 
-            $userPass = $database->get('accounts', 'password', ['username' => $user]);
-
-            if (hash('sha256', $pass) === $userPass) {
-                $_SESSION['loggedin'] = true;
-                $_SESSION['email'] = $email;
-                $_SESSION['first'] = $database->get('accounts', 'first', ['username' => $user]);
-                $_SESSION['last'] = $database->get('accounts', 'last', ['username' => $user]);
-                $_SESSION['studentid'] = $database->get('accounts', 'student-id', ['username' => $user]);
-                header("location: ?p=home");
+            if($database->has('accounts', ['email' => $email])) {
+                $userPass = $database->get('accounts', 'password', ['email' => $email]);
+                if(hash('sha256', $pass) === $userPass) {
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['email'] = $email;
+                    header("location: ?p=home");
+                } else {
+                    self::alert('danger', 'Error!', 'Incorrect password!');
+                }
+            } else {
+                self::alert('danger', 'Error!', 'Email not in database!');
             }
         }
     }
@@ -39,13 +40,12 @@ class LoginPage extends Page {
     </form>
 </div>';
         echo $content;
-                if(isset($_POST['submit'])) echo '<div class=jumbotron><h1>' . $_POST['email'] . '</h1></div>';
     }
 
     public function writePage() {
         self::writePageStart();
-        self::writePageContent();
         self::logic();
+        self::writePageContent();
         self::writePageEnd();
     }
 }
