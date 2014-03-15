@@ -20,7 +20,7 @@ class TournamentsPage extends Page {
 
             foreach($database->select('tournaments', '*') as $i) {
                 $content .=
-'           <tr id="' . $i . '">
+'           <tr id="' . $i['id'] . '">
             <td>' . $i['name'] . '</td>
             <td>' . $i['date'] . '</td>
             <td>' . $i['location'] . '</td>
