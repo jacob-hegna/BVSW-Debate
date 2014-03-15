@@ -11,14 +11,20 @@ class TournamentsPage extends Page {
 '<div class="jumbotron">
     <h1>Tournament Schedule</h1>
     <table class="table table-hover" style="margin-top: 50px; text-align: left; font-size: medium;">
-        <thead><th>Name</th><th>Date(s)</th></thead>
+        <thead>
+        <th>Name</th>
+        <th>Date(s)</th>
+        <th>Location</th>
+        </thead>
         <tbody>';
 
-            for($i = 0; $i < $database->count("tournaments", []); $i++) {
+            foreach($database->select('tournaments', '*') as $i) {
                 $content .=
 '           <tr id="' . $i . '">
-            <td>' . $database->get("tournaments", "name", ["id" => $i+1]) . '</td>
-            <td>' . $database->get("tournaments", "date", ["id" => $i+1]) . '</td>';
+            <td>' . $i['name'] . '</td>
+            <td>' . $i['date'] . '</td>
+            <td>' . $i['location'] . '</td>
+            </tr>';
             }
 
             $content .=
