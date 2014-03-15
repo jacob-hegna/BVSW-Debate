@@ -12,7 +12,7 @@ class ProfilePage extends Page {
 
         $content = 
 '<div class="jumbotron" style="text-align:left;">
-    ' . ($this->userEmail == $_SESSION['emai'] ? '<a href="?p=profile' . (array_key_exists("edit", $_GET) ? "" : "&edit") . '" class="btn btn-primary btn-sm" style="float: right;">' . (array_key_exists("edit", $_GET) ? "Done" : "Edit account") . '</a>' : '') . '
+    ' . ($this->userEmail == $_SESSION['email'] ? '<a href="?p=profile' . (array_key_exists("edit", $_GET) ? "" : "&edit") . '" class="btn btn-primary btn-sm" style="float: right;">' . (array_key_exists("edit", $_GET) ? "Done" : "Edit account") . '</a>' : '') . '
     <center><h1>' . Util::getUser($this->userEmail)['first'] . ' ' . Util::getUser($this->userEmail)['last'] . '</h1></center>
     <br>
     <div class="row">
