@@ -1,7 +1,10 @@
 <?php
 class ProfilePage extends Page {
-    public function __construct() {
+    private $userEmail;
+
+    public function __construct($email) {
         parent::__construct();
+        $this->userEmail = $email;
     }
 
     public function writePageContent() {
@@ -9,8 +12,8 @@ class ProfilePage extends Page {
 
         $content = 
 '<div class="jumbotron" style="text-align:left;">
-    <a href="?p=profile' . (array_key_exists("edit", $_GET) ? "" : "&edit") . '" class="btn btn-primary btn-sm" style="float: right;">' . (array_key_exists("edit", $_GET) ? "Done" : "Edit account") . '</a>
-    <center><h1>' . Util::getUser($_SESSION['email'])['first'] . ' ' . Util::getUser($_SESSION['email'])['last'] . '</h1></center>
+    ' . ($this->userEmail == $_SESSION['emai'] ? '<a href="?p=profile' . (array_key_exists("edit", $_GET) ? "" : "&edit") . '" class="btn btn-primary btn-sm" style="float: right;">' . (array_key_exists("edit", $_GET) ? "Done" : "Edit account") . '</a>' : '') . '
+    <center><h1>' . Util::getUser($this->userEmail)['first'] . ' ' . Util::getUser($this->userEmail)['last'] . '</h1></center>
     <br>
     <div class="row">
         <div class="col-md-4">
@@ -18,11 +21,11 @@ class ProfilePage extends Page {
                 <div class="panel-heading">Information</div>
                     <ul class="list-group" style="line-height: 1;">
                     <li class="list-group-item">
-                    <span class="badge">' . Util::getUser($_SESSION['email'])['tournaments'] . '</span>
+                    <span class="badge">' . Util::getUser($this->userEmail)['tournaments'] . '</span>
                     Tournaments
                     </li>
                     <li class="list-group-item">
-                    <span class="badge">' . Util::getRank(Util::getUser($_SESSION['email'])['rank']) . '</span>
+                    <span class="badge">' . Util::getRank(Util::getUser($this->userEmail)['rank']) . '</span>
                     Rank
                     </li>
                     </ul>
@@ -43,9 +46,9 @@ class ProfilePage extends Page {
                 <div class="panel">
                     <div class="panel-heading">Contact Details</div>
                         <form method="POST" style="padding: 10px 10px 10px 10px;">
-                            <input class="form-control" type="text" name="email" placeholder="Email" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;" value="' . $_SESSION['email'] . '">
-                            <input class="form-control" type="text" name="phone" placeholder="Phone number" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-top-left-radius: 0; border-top-right-radius: 0;" value="' . Util::getUser($_SESSION['email'])['number'] . '">
-                            <input class="form-control" type="text" name="studentid" placeholder="Student ID" style="border-top-left-radius: 0; border-top-right-radius: 0;" value="' . Util::getUser($_SESSION['email'])['student-id'] . '">
+                            <input class="form-control" type="text" name="email" placeholder="Email" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;" value="' . $this->userEmail . '">
+                            <input class="form-control" type="text" name="phone" placeholder="Phone number" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-top-left-radius: 0; border-top-right-radius: 0;" value="' . Util::getUser($this->userEmail)['number'] . '">
+                            <input class="form-control" type="text" name="studentid" placeholder="Student ID" style="border-top-left-radius: 0; border-top-right-radius: 0;" value="' . Util::getUser($this->userEmail)['student-id'] . '">
                             <button name="contactSub" type="submit" class="btn btn-primary btn-sm">Update details</button>
                         </form>
                     </div>
@@ -56,15 +59,15 @@ class ProfilePage extends Page {
                 <div class="panel-heading">Contact Details</div>
                 <ul class="list-group" style="line-height: 1;">
                 <li class="list-group-item">
-                <span class="badge">' . $_SESSION['email'] . '</span>
+                <span class="badge">' . $this->userEmail . '</span>
                 Email address
                 </li>
                 <li class="list-group-item">
-                <span class="badge">' . Util::formatPhoneNum(Util::getUser($_SESSION['email'])['number']) . '</span>
+                <span class="badge">' . Util::formatPhoneNum(Util::getUser($this->userEmail)['number']) . '</span>
                 Phone number
                 </li>
                 <li class="list-group-item">
-                <span class="badge">' . Util::getUser($_SESSION['email'])['student-id'] . '</span>
+                <span class="badge">' . Util::getUser($this->userEmail)['student-id'] . '</span>
                 Student ID
                 </li>
                 </ul>
@@ -78,18 +81,18 @@ class ProfilePage extends Page {
     }
 
     public function changePassword() {
-        if(hash('sha256', $_POST['oldPassword']) === Util::getUser($_SESSION['email'])['password']) {
+        if(hash('sha256', $_POST['oldPassword']) === Util::getUser($this->userEmail)['password']) {
             if($_POST['newPassword'] === $_POST['checkNewPassword']) {
-                Util::editUser($_SESSION['email'], 'password', hash('sha256', $_POST['newPassword']));
+                Util::editUser($this->userEmail, 'password', hash('sha256', $_POST['newPassword']));
             }
         }
     }
 
     public function changeContact() {
-        Util::editUser($_SESSION['email'], 'email', $_POST['email']);
-        $_SESSION['email'] = $_POST['email'];
-        Util::editUser($_SESSION['email'], 'number', $_POST['phone']);
-        Util::editUser($_SESSION['email'], 'student-id', $_POST['studentid']);
+        Util::editUser($this->userEmail, 'email', $_POST['email']);
+        $this->userEmail = $_POST['email'];
+        Util::editUser($this->userEmail, 'number', $_POST['phone']);
+        Util::editUser($this->userEmail, 'student-id', $_POST['studentid']);
 
     }
 

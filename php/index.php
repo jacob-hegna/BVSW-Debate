@@ -63,7 +63,7 @@ switch($_GET['p']) {
     case "profile":
         if($_SESSION['loggedin']) {
             require("../modules/page/class.ProfilePage.php");
-            $page = new ProfilePage();
+            $page = new ProfilePage($_SESSION['email']);
             $page->writePage();
         } else {
             $page = new ErrorPage('403');
