@@ -44,6 +44,9 @@ html, body{
 .tooltip-inner {
     max-width: 150px;
 }
+.tournament-reg-table {
+    width:70%;
+}
 
 fieldset{
   border:0;

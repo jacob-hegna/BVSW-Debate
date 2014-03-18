@@ -10,10 +10,33 @@ class CoachPage extends Page {
     public function writeHeader() {
         $header = 
 '<div class="jumbotron" style="text-align:left;">
-    <ul id="navbar" class="nav nav-pills">
-        <li id="gen-tab" class="active"><a href="?p=profile&s=general">General</a></li>
-        <li id="tourny-tab"><a href="?p=profile&s=tournaments">Tournament registration</a></li>
-    </ul>
+    <ul id="navbar" class="nav nav-pills">';
+        if(array_key_exists('s', $_GET)) {
+            switch($_GET['s']) {
+                case 'general':
+                    $header .=
+'       <li id="gen-tab" class="active"><a href="?p=profile&s=general">General</a></li>
+        <li id="tourny-tab"><a href="?p=profile&s=tournaments">Tournament registration</a></li>';
+                    break;
+                case 'tournaments':
+                    $header .=
+'       <li id="gen-tab"><a href="?p=profile&s=general">General</a></li>
+        <li id="tourny-tab" class="active"><a href="?p=profile&s=tournaments">Tournament registration</a></li>';
+
+                    break;
+                default:
+                    $header .=
+'       <li id="gen-tab" class="active"><a href="?p=profile&s=general">General</a></li>
+        <li id="tourny-tab"><a href="?p=profile&s=tournaments">Tournament registration</a></li>';
+                    break;
+            }
+        } else {
+            $header .=
+'       <li id="gen-tab" class="active"><a href="?p=profile&s=general">General</a></li>
+        <li id="tourny-tab"><a href="?p=profile&s=tournaments">Tournament registration</a></li>';
+        }
+        $header .=
+'    </ul>
     <center><h1>' . Util::getUser($this->userEmail)['first'] . ' ' . Util::getUser($this->userEmail)['last'] . '</h1></center>';
     
         echo $header;

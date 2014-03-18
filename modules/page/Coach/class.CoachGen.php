@@ -8,25 +8,8 @@ class CoachGen {
 
     public function writeBody() {
         global $database;
-        $content = 
-'    <br>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel">
-                <div class="panel-heading">Information</div>
-                    <ul class="list-group" style="line-height: 1;">
-                    <li class="list-group-item">
-                    <span class="badge">' . Util::getUser($this->userEmail)['tournaments'] . '</span>
-                    Tournaments
-                    </li>
-                    <li class="list-group-item">
-                    <span class="badge">' . Util::getRank(Util::getUser($this->userEmail)['rank']) . '</span>
-                    Rank
-                    </li>
-                    </ul>
-                </div>
-            </div>
-        <div class="col-md-8">';
+        $content = '';
+
         if(array_key_exists('edit', $_GET)) {
             $content .= '
             <div class="panel">
@@ -43,11 +26,8 @@ class CoachGen {
                         <form method="POST" style="padding: 10px 10px 10px 10px;">
                             <input class="form-control" type="text" name="email" placeholder="Email" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;" value="' . $this->userEmail . '">
                             <input class="form-control" type="text" name="phone" placeholder="Phone number" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-top-left-radius: 0; border-top-right-radius: 0;" value="' . Util::getUser($this->userEmail)['number'] . '">
-                            <input class="form-control" type="text" name="studentid" placeholder="Student ID" style="border-top-left-radius: 0; border-top-right-radius: 0;" value="' . Util::getUser($this->userEmail)['student-id'] . '">
                             <button name="contactSub" type="submit" class="btn btn-primary btn-sm">Update details</button>
-                        </form>
-                    </div>
-                </div>';
+                        </form>';
         } else {
             $content .= '
             <div class="panel">
@@ -61,12 +41,7 @@ class CoachGen {
                 <span class="badge">' . Util::formatPhoneNum(Util::getUser($this->userEmail)['number']) . '</span>
                 Phone number
                 </li>
-                <li class="list-group-item">
-                <span class="badge">' . Util::getUser($this->userEmail)['student-id'] . '</span>
-                Student ID
-                </li>
-                </ul>
-            </div>';
+                </ul>';
         }
         $content .= '
         </div>
@@ -88,7 +63,6 @@ class CoachGen {
         Util::editUser($this->userEmail, 'email', $_POST['email']);
         $this->userEmail = $_POST['email'];
         Util::editUser($this->userEmail, 'number', $_POST['phone']);
-        Util::editUser($this->userEmail, 'student-id', $_POST['studentid']);
     }
 
     public function logic() {

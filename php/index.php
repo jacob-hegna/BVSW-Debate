@@ -33,76 +33,75 @@ $database = new medoo([
 if(!array_key_exists("p", $_GET)) {
     $page = new HomePage();
     $page->writePage();
-    return;
-}
-
-switch($_GET['p']) {
-    case "home":
-        $page = new HomePage();
-        $page->writePage();
-        break;
-
-    case "tournaments":
-        require("../modules/page/class.TournamentsPage.php");
-        $page = new TournamentsPage();
-        $page->writePage();
-        break;
-
-    case "members":
-        if($_SESSION['loggedin']) {
-            require("../modules/page/class.MemberPage.php");
-            $page = new MemberPage();
+} else {
+    switch($_GET['p']) {
+        case "home":
+            $page = new HomePage();
             $page->writePage();
-        } else {
-            $page = new ErrorPage('403');
+            break;
+
+        case "tournaments":
+            require("../modules/page/class.TournamentsPage.php");
+            $page = new TournamentsPage();
             $page->writePage();
-        }
-        break;
+            break;
 
-    case "profile":
-        if($_SESSION['loggedin']) {
-            $page;
-            switch(Util::getUser($_SESSION['email'])['rank']) {
-                case 3:
-                    require("../modules/page/Coach/class.CoachPage.php");
-                    $page = new CoachPage($_SESSION['email']);
-                    break;
-
-                default:
-                    require("../modules/page/class.ProfilePage.php");
-                    $page = new ProfilePage($_SESSION['email']);
-                    break;
+        case "members":
+            if($_SESSION['loggedin']) {
+                require("../modules/page/class.MemberPage.php");
+                $page = new MemberPage();
+                $page->writePage();
+            } else {
+                $page = new ErrorPage('403');
+                $page->writePage();
             }
+            break;
+
+        case "profile":
+            if($_SESSION['loggedin']) {
+                $page;
+                switch(Util::getUser($_SESSION['email'])['rank']) {
+                    case 3:
+                        require("../modules/page/Coach/class.CoachPage.php");
+                        $page = new CoachPage($_SESSION['email']);
+                        break;
+
+                    default:
+                        require("../modules/page/class.ProfilePage.php");
+                        $page = new ProfilePage($_SESSION['email']);
+                        break;
+                }
+                $page->writePage();
+            } else {
+                $page = new ErrorPage('403');
+                $page->writePage();
+            }
+            break;
+
+        case "login":
+            require("../modules/page/class.LoginPage.php");
+            $page = new LoginPage();
             $page->writePage();
-        } else {
-            $page = new ErrorPage('403');
+            break;
+
+        case "logout":
+            session_unset();
+            session_destroy();
+            header('location: ?p=home');
+            $_SESSION['loggedin'] = false;
+            break;
+
+        case "register":
+            require("../modules/page/class.RegisterPage.php");
+            $page = new RegisterPage();
             $page->writePage();
-        }
-        break;
+            break;
 
-    case "login":
-        require("../modules/page/class.LoginPage.php");
-        $page = new LoginPage();
-        $page->writePage();
-        break;
-
-    case "logout":
-        session_unset();
-        session_destroy();
-        header('location: ?p=home');
-        $_SESSION['loggedin'] = false;
-        break;
-
-    case "register":
-        require("../modules/page/class.RegisterPage.php");
-        $page = new RegisterPage();
-        $page->writePage();
-        break;
-
-    default:
-        $page = new ErrorPage("404");
-        $page->writePage();
-        break;
+        default:
+            $page = new ErrorPage("404");
+            $page->writePage();
+            break;
+    }
 }
 ob_end_flush();
 ?>
