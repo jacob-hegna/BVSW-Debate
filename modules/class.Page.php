@@ -62,6 +62,7 @@ abstract class Page {
     </div>
     <script src="static/js/jquery-2.1.0.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/global.js"></script>
 </body>
 </html>';
         echo $pageEnd;

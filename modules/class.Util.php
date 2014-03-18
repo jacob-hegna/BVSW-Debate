@@ -21,7 +21,7 @@ class Util {
                 $rankStr = "Novice";
                 break;
             case 1:
-                $rankStr = "Varsity";
+                $rankStr = "Advanced";
                 break;
             case 2:
                 $rankStr = "Site Administrator";

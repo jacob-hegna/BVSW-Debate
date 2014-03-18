@@ -37,3 +37,65 @@ html, body{
     background-color: #d9edf7;
     border-color: #3db5d8;
 }
+.btn {
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+.tooltip-inner {
+    max-width: 150px;
+}
+
+fieldset{
+  border:0;
+  margin:0;
+  padding:0;
+  position:relative;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"]{
+  border: 1px solid #dadada;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width:100%;
+  padding: 10px;
+  color:#272c32;
+  margin-bottom:5px;
+}
+
+input[type="submit"]{
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background:#4cb182;
+  border:0;
+  padding: 16px 0;
+  color:#fff;
+  font-weight:800;
+  width:100%;
+  font-size:1.1em
+}
+
+input[type="submit"]:hover{
+  background:#408F6A;
+}
+
+input[type="text"]:after{
+  content:'ddd';
+  background:#ccc;
+  height:40px;
+  width:40px;
+}
+
+.ph{
+   -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  position:absolute;
+  right: 6px;
+  top: 9px;
+  padding: 2px 5px;
+  background:#007FFF;
+  color:#fff;
+  display:none;
+}
