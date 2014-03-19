@@ -61,6 +61,19 @@ class TournamentsPage extends Page {
             . '</tr>';
             }
 
+            if(Util::getUser($_SESSION['email'])['rank'] >= 2) {
+                $content .=
+'           <tr>
+                <form method="post">
+                    <input type="hidden" name="new" value="">
+                    <td><input name="name" class="form-control" placeholder="Name" required="" autofocus=""></td>
+                    <td><input name="date" class="form-control" placeholder="Date(s)" required="" autofocus=""></td>
+                    <td><input name="location" class="form-control" placeholder="Location" required="" autofocus=""></td>
+                    <td><button class="btn btn-primary" name="submit" type="submit">Submit</buton></td>
+                </form>
+            </tr>';
+            }
+
             $content .=
 '       </tbody>    
     </table>
@@ -72,9 +85,16 @@ class TournamentsPage extends Page {
     public function logic() {
         global $database;
         if(array_key_exists('submit', $_POST)) {
-            $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
-            array_push($array, Util::getUser($_SESSION['email'])['id']);
-            $database->update('tournaments', ['register' => json_encode($array)], ['id' => $_POST['id']]);
+            if(array_key_exists('new', $_POST)) {
+                $database->insert('tournaments', [
+                    'name' => $_POST['name'],
+                    'date' => $_POST['date'],
+                    'location' => $_POST['location']]);
+            } else {
+                $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
+                array_push($array, Util::getUser($_SESSION['email'])['id']);
+                $database->update('tournaments', ['register' => json_encode($array)], ['id' => $_POST['id']]);
+            }
         }
     }
 
