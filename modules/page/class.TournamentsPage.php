@@ -68,8 +68,8 @@ class TournamentsPage extends Page {
                     <form method="post">
                         <input type="hidden" name="new" value="">
                         <td><input name="name" class="form-control" placeholder="Name" required="" autofocus=""></td>
-                        <td><input name="date" class="form-control" placeholder="Date(s)" required="" autofocus=""></td>
-                        <td><input name="location" class="form-control" placeholder="Location" required="" autofocus=""></td>
+                        <td><input name="date" class="form-control" placeholder="Date(s)" required=""></td>
+                        <td><input name="location" class="form-control" placeholder="Location" required=""></td>
                         <td><button class="btn btn-primary" name="submit" type="submit">Submit</buton></td>
                     </form>
                 </tr>';
