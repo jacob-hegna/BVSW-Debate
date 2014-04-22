@@ -78,7 +78,7 @@ class TournamentsPage extends Page {
                     $content .=
     '           <tr>
                     <form method="post">
-                        <td><input name="name" class="form-control" placeholder="Name" required="" autofocus=""></td>
+                        <td><input name="name" class="form-control" placeholder="Name" required=""></td>
                         <td><input name="date" class="form-control" placeholder="Date(s)" required=""></td>
                         <td><input name="location" class="form-control" placeholder="Location" required=""></td>
                         <td><button class="btn btn-primary" name="new-tourny" type="submit">Submit</buton></td>
