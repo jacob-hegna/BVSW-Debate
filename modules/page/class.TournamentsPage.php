@@ -104,15 +104,14 @@ class TournamentsPage extends Page {
                 'location' => $_POST['location'],
                 'register' => '[]',
                 'attend'   => '[]']);
-            } else if(array_key_exists('apply', $_POST)) {
-                $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
-                array_push($array, Util::getUser($_SESSION['email'])['id']);
-                $database->update('tournaments', ['register' => json_encode($array)], ['id' => $_POST['id']]);
-            } else if(array_key_exists('remove', $_POST)) {
-                $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
-                $array = array_diff($array, [Util::getUser($_SESSION['email'])['id']]);
-                $database->update('tournaments', ['register' => json_encode($array)], ['id' => $_POST['id']]);
-            }
+        } else if(array_key_exists('apply', $_POST)) {
+            $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
+            array_push($array, Util::getUser($_SESSION['email'])['id']);
+            $database->update('tournaments', ['register' => json_encode($array)], ['id' => $_POST['id']]);
+        } else if(array_key_exists('remove', $_POST)) {
+            $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
+            $array = array_diff($array, [Util::getUser($_SESSION['email'])['id']]);
+            $database->update('tournaments', ['register' => json_encode($array)], ['id' => $_POST['id']]);
         }
     }
 
