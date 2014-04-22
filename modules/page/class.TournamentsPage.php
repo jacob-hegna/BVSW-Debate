@@ -40,14 +40,26 @@ class TournamentsPage extends Page {
                         $showButton = true;
                         $content .=
 '               <form method="post">
-                    <button class="btn btn-sm btn-primary" name="submit" type="submit">Apply</button>
+                    <button class="btn btn-sm btn-primary" name="apply" type="submit">Apply</button>
+                    <input type="hidden" name="id" value="'.$i['id'].'">';
+                    } else {
+                        $content .=
+'               <form method="post">
+                    <button class"btn btn-sm btn-primary" name="remove" type="submit">Can\'t go?</button>
                     <input type="hidden" name="id" value="'.$i['id'].'">';
                     }
+
                 }
 
                 $content .= 
 '           ' . $i['name'];
             
+                if(array_search($_SESSION['email'])['id'], $register)) {
+                    $content .= '<span class="label label-warning>Applied</span>';
+                } else if(array_search($_SESSION['email'])['id'], $attend)) {
+                    $content .= '<span class="label label-success>Attending</span>';
+                }
+
                 if($showButton) {
                     $content .= 
 '               </form>';
@@ -66,11 +78,10 @@ class TournamentsPage extends Page {
                     $content .=
     '           <tr>
                     <form method="post">
-                        <input type="hidden" name="new" value="">
                         <td><input name="name" class="form-control" placeholder="Name" required="" autofocus=""></td>
                         <td><input name="date" class="form-control" placeholder="Date(s)" required=""></td>
                         <td><input name="location" class="form-control" placeholder="Location" required=""></td>
-                        <td><button class="btn btn-primary" name="submit" type="submit">Submit</buton></td>
+                        <td><button class="btn btn-primary" name="new-tourny" type="submit">Submit</buton></td>
                     </form>
                 </tr>';
                 }
@@ -86,17 +97,20 @@ class TournamentsPage extends Page {
 
     public function logic() {
         global $database;
-        if(array_key_exists('submit', $_POST)) {
-            if(array_key_exists('new', $_POST)) {
-                $database->insert('tournaments', [
-                    'name' => $_POST['name'],
-                    'date' => $_POST['date'],
-                    'location' => $_POST['location'],
-                    'register' => '[]',
-                    'attend'   => '[]']);
-            } else {
+        if(array_key_exists('new-tourny', $_POST)) {
+            $database->insert('tournaments', [
+                'name' => $_POST['name'],
+                'date' => $_POST['date'],
+                'location' => $_POST['location'],
+                'register' => '[]',
+                'attend'   => '[]']);
+            } else if(array_key_exists('apply', $_POST)) {
                 $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
                 array_push($array, Util::getUser($_SESSION['email'])['id']);
+                $database->update('tournaments', ['register' => json_encode($array)], ['id' => $_POST['id']]);
+            } else if(array_key_exists('remove', $_POST)) {
+                $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
+                $array = array_diff($array, [Util::getUser($_SESSION['email'])['id']]);
                 $database->update('tournaments', ['register' => json_encode($array)], ['id' => $_POST['id']]);
             }
         }
