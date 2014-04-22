@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 session_start();
 ob_start();
 
-require("config.php");
+require("../../data/config.php");
 require("../modules/medoo.min.php");
 require("../modules/class.Util.php");
 require("../modules/class.Page.php");
