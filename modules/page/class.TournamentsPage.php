@@ -56,10 +56,12 @@ class TournamentsPage extends Page {
 
                 $content .=  $i['name'];
 
-                if(in_array(Util::getUser($_SESSION['email'])['id'], $attend)) {
-                    $content .= ' <span class="label label-success">Attending</span>';
-                } else if(in_array(Util::getUser($_SESSION['email'])['id'], $register)) {
-                    $content .= ' <span class="label label-warning">Applied</span>';
+                if(array_key_exists('email', $_SESSION)) {
+                    if(in_array(Util::getUser($_SESSION['email'])['id'], $attend)) {
+                        $content .= ' <span class="label label-success">Attending</span>';
+                    } else if(in_array(Util::getUser($_SESSION['email'])['id'], $register)) {
+                        $content .= ' <span class="label label-warning">Applied</span>';
+                    }
                 }
 
                 if($showButton) {
