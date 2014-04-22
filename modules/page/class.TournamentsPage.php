@@ -91,7 +91,9 @@ class TournamentsPage extends Page {
                 $database->insert('tournaments', [
                     'name' => $_POST['name'],
                     'date' => $_POST['date'],
-                    'location' => $_POST['location']]);
+                    'location' => $_POST['location'],
+                    'register' => '[]',
+                    'attend'   => '[]']);
             } else {
                 $array = json_decode($database->get('tournaments', 'register', ['id' => $_POST['id']]));
                 array_push($array, Util::getUser($_SESSION['email'])['id']);
