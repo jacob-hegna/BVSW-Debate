@@ -7,7 +7,7 @@ class RegisterPage extends Page {
     public function logic() {
         if(array_key_exists("email", $_POST) && array_key_exists("password", $_POST) && array_key_exists("studentid", $_POST)) {
             global $database;
-            if($_POST['verification'] == 'kdsupa') {
+            if($_POST['verification'] == VERIFY_CODE) {
                 if(!$database->has('accounts', ['email' => $_POST['email']])) {
                     if(!$database->has('accounts', ['number' => $_POST['number']])) {
                         // PHP dark magic won't let me have three $database->has()
