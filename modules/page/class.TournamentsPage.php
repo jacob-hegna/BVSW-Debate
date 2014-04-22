@@ -45,7 +45,7 @@ class TournamentsPage extends Page {
                     } else {
                         $content .=
 '               <form method="post">
-                    <button class"btn btn-sm btn-primary" name="remove" type="submit">Can\'t go?</button>
+                    <button class="btn btn-sm btn-primary" name="remove" type="submit">Can\'t go?</button>
                     <input type="hidden" name="id" value="'.$i['id'].'">';
                     }
 
