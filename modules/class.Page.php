@@ -57,7 +57,7 @@ abstract class Page {
     </div>
     <div id="footer">
         <div class="container" id="creditContainer">
-            <p class="credit">The BVSW homepage site is being developed by <a href="http://jacobhegna.subd.in/" target="_blank">Jacob Hegna</a>.  The <a href="https://github.com/jacob-hegna/BVSW-Debate/" target="_blank">source code</a> is hosted on Github.</p>
+            <p class="credit">The BVSW debate site is being developed by <a href="http://jacobhegna.subd.in/" target="_blank">Jacob Hegna</a>.  The <a href="https://github.com/jacob-hegna/BVSW-Debate/" target="_blank">source code</a> is hosted on Github.</p>
         </div>
     </div>
     <script src="static/js/jquery-2.1.0.min.js"></script>
