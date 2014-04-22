@@ -31,11 +31,11 @@ class TournamentsPage extends Page {
                 $content .=
 '           <tr id="' . $i['id'] . '">
             <td>';
-
+                $register = json_decode($database->get('tournaments', 'register', ['id' => $i['id']]));
+                $attend   = json_decode($database->get('tournaments', 'attend', ['id' => $i['id']]));
+                
                 $showButton = false;
                 if($isDebater) {
-                    $register = json_decode($database->get('tournaments', 'register', ['id' => $i['id']]));
-                    $attend   = json_decode($database->get('tournaments', 'attend', ['id' => $i['id']]));
                     if(!in_array(Util::getUser($_SESSION['email'])['id'], $register)) {
                         $showButton = true;
                         $content .=
