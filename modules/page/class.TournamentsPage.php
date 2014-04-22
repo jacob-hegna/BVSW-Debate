@@ -53,8 +53,7 @@ class TournamentsPage extends Page {
 
                 }
 
-                $content .= 
-'           ' . $i['name'];
+                $content .=  $i['name'];
             
                 if(array_search(Util::getUser($_SESSION['email'])['id'], $register)) {
                     $content .= '<span class="label label-warning">Applied</span>';
@@ -63,8 +62,7 @@ class TournamentsPage extends Page {
                 }
 
                 if($showButton) {
-                    $content .= 
-'               </form>';
+                    $content .= '</form>';
                 }
 
                 $content .= 
