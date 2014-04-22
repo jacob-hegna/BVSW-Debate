@@ -31,7 +31,7 @@ class TournamentsPage extends Page {
                 $content .=
 '           <tr id="' . $i['id'] . '">
             <td>';
-            
+
                 $register = json_decode($database->get('tournaments', 'register', ['id' => $i['id']]));
                 $attend   = json_decode($database->get('tournaments', 'attend', ['id' => $i['id']]));
                 
@@ -57,9 +57,9 @@ class TournamentsPage extends Page {
 '           ' . $i['name'];
             
                 if(array_search(Util::getUser($_SESSION['email'])['id'], $register)) {
-                    $content .= '<span class="label label-warning>Applied</span>';
+                    $content .= '<span class="label label-warning">Applied</span>';
                 } else if(array_search(Util::getUser($_SESSION['email'])['id'], $attend)) {
-                    $content .= '<span class="label label-success>Attending</span>';
+                    $content .= '<span class="label label-success">Attending</span>';
                 }
 
                 if($showButton) {
