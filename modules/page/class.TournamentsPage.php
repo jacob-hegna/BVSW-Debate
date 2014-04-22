@@ -54,9 +54,9 @@ class TournamentsPage extends Page {
                 $content .= 
 '           ' . $i['name'];
             
-                if(array_search($_SESSION['email'])['id'], $register)) {
+                if(array_search($_SESSION['email'])['id'], $register) {
                     $content .= '<span class="label label-warning>Applied</span>';
-                } else if(array_search($_SESSION['email'])['id'], $attend)) {
+                } else if(array_search($_SESSION['email'])['id'], $attend) {
                     $content .= '<span class="label label-success>Attending</span>';
                 }
 
