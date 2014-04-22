@@ -42,7 +42,8 @@ class TournamentsPage extends Page {
                         $content .=
 '               <form method="post">
                     <button class="btn btn-sm btn-primary" name="apply" type="submit">Apply</button>
-                    <input type="hidden" name="id" value="'.$i['id'].'">';
+                    <input type="hidden" name="id" value="'.$i['id'].'">
+';
                     } else {
                         $showButton = true;
                         $content .=
@@ -55,10 +56,10 @@ class TournamentsPage extends Page {
 
                 $content .=  $i['name'];
             
-                if(array_search(Util::getUser($_SESSION['email'])['id'], $register)) {
-                    $content .= '<span class="label label-warning">Applied</span>';
-                } else if(array_search(Util::getUser($_SESSION['email'])['id'], $attend)) {
-                    $content .= '<span class="label label-success">Attending</span>';
+                if(in_array(Util::getUser($_SESSION['email'])['id'], $register)) {
+                    $content .= ' <span class="label label-warning">Applied</span>';
+                } else if(in_array(Util::getUser($_SESSION['email'])['id'], $attend)) {
+                    $content .= ' <span class="label label-success">Attending</span>';
                 }
 
                 if($showButton) {
