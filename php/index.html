@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="static/img/favicon.ico">
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/theme.css" rel="stylesheet">
+    <script src="static/js/jquery-2.1.0.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
@@ -14,17 +15,19 @@
                 <a href="#home" class="navbar-brand nav-item">BVSW Debate</a>
             </div>
             <div class="collapse navbar-collapse">
-                <ul id="navbar-left" class="nav navbar-nav">
-                    <script id="nav-template" type="text/x-template">
-                        <% _.each(buttons, function(button) { %>
-                            <il><a class="btn btn-default navbar-btn" href="<%= button %>"><%= button %></a></il>
-                        <% }); %>
-                    </script>
-                    <il><a href="#tournaments" class="btn btn-default navbar-btn nav-item">Tournaments</a></il>
-                </ul>
+                <ul id="navbar-left" class="nav navbar-nav"></ul>
+                <script id="left-nav-template" type="text/x-template">
+                    <% _.each(pages, function(page) { %>
+                        <il><a href="#<%= page %>" class="btn btn-default navbar-btn nav-item"><%= page %></a></il>
+                    <% }); %>
+                </script>
                 <ul id="navbar-right" class="nav navbar-nav navbar-right">
-                    <il><a id='sign-in' class="btn btn-default navbar-btn">Sign in</a></il>
                 </ul>
+                <script id="right-nav-template" type="text/x-template">
+                    <% _.each(acc_controls, function(control) { %>
+                        <il><a id='<%= control["id"] %>' class="btn btn-default navbar-btn"><%= control['name'] %></a></il>
+                    <% }); %>
+                </script>
             </div>
         </div>
     </div>
@@ -37,7 +40,6 @@
             <p class="credit">The BVSW debate site is being developed by <a href="http://jacob-hegna.github.io/" target="_blank">Jacob Hegna</a>.  The <a href="https://github.com/jacob-hegna/BVSW-Debate/" target="_blank">source code</a> is hosted on Github.</p>
         </div>
     </div>
-    <script src="static/js/jquery-2.1.0.min.js"></script>
     <script src="static/js/underscore-min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/placeholders.js"></script>

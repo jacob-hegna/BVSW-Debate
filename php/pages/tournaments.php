@@ -34,16 +34,14 @@ function get_tournaments() {
                         if(!in_array(Util::getUser($_SESSION['email'])['id'], $register)) {
                             $showButton = true;
                             $content .=
-    '               <form method="post">
-                        <button class="btn btn-sm btn-primary" name="apply" type="submit">Apply</button>
-                        <input type="hidden" name="id" value="'.$i['id'].'">
+    '               <button class="btn btn-sm btn-primary" name="apply" type="submit">Apply</button>
+                    <input type="hidden" name="id" value="'.$i['id'].'">
     ';
                         } else if(!in_array(Util::getUser($_SESSION['email'])['id'], $attend)) {
                             $showButton = true;
                             $content .=
-    '               <form method="post">
-                        <button class="btn btn-sm btn-primary" name="remove" type="submit">Can\'t go?</button>
-                        <input type="hidden" name="id" value="'.$i['id'].'">';
+    '               <button class="btn btn-sm btn-primary" name="remove" type="submit">Can\'t go?</button>
+                    <input type="hidden" name="id" value="'.$i['id'].'">';
                         }
 
                     }
@@ -58,10 +56,6 @@ function get_tournaments() {
                         }
                     }
 
-                    if($showButton) {
-                        $content .= '</form>';
-                    }
-
                     $content .=
     '           </td>
                 <td>' . $i['date'] . '</td>
@@ -74,13 +68,33 @@ function get_tournaments() {
                     if(Util::getUser($_SESSION['email'])['rank'] >= 2) {
                         $content .=
         '           <tr>
-                        <form method="post">
-                            <td><input name="name" class="form-control" placeholder="Name" required=""></td>
-                            <td><input name="date" class="form-control" placeholder="Date(s)" required=""></td>
-                            <td><input name="location" class="form-control" placeholder="Location" required=""></td>
-                            <td><button class="btn btn-primary" name="new-tourny" type="submit">Submit</buton></td>
-                        </form>
-                    </tr>';
+                        <td><input id="name-box" name="name" class="form-control" placeholder="Name" required=""></td>
+                        <td><input id="date-box" name="date" class="form-control" placeholder="Date(s)" required=""></td>
+                        <td><input id="location-box" name="location" class="form-control" placeholder="Location" required=""></td>
+                        <td><button id="add-tournament" class="btn btn-primary" name="new-tourny" type="submit">Submit</buton></td>
+                    </tr>
+                    <script>
+                        $("#add-tournament").on("click", function(e) {
+                            e.preventDefault();
+                            if(!$("#name-box").val().trim() &&
+                               !$("#date-box").val().trim() &&
+                               !$("#location-box").val().trim) {
+                                $.ajax({
+                                    type: "post",
+                                    url: "main.php",
+                                    data: {
+                                        add_tournament: {
+                                            name:         $("#name-box").val(),
+                                            date:         $("#date-box").val(),
+                                            location:     $("#location-box").val()
+                                        }
+                                    }
+                                }).done(function(data) {
+                                    $("#main").html(data);
+                                });
+                            };
+                        });
+                    </script>';
                     }
                 }
 
