@@ -76,9 +76,9 @@ function get_tournaments() {
                     <script>
                         $("#add-tournament").on("click", function(e) {
                             e.preventDefault();
-                            if(!$("#name-box").val().trim() &&
-                               !$("#date-box").val().trim() &&
-                               !$("#location-box").val().trim) {
+                            if($("#name-box").val().trim() &&
+                               $("#date-box").val().trim() &&
+                               $("#location-box").val().trim()) {
                                 $.ajax({
                                     type: "post",
                                     url: "main.php",

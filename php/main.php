@@ -1,18 +1,8 @@
 <?php
 session_start();
 
-require('../modules/class.Util.php');
-require('../modules/medoo.min.php');
 require('config.php');
-
-require('util/add-tournament.php');
-require('util/sign-in.php');
-require('util/logged-in.php');
-
-require('pages/home.php');
-require('pages/tournaments.php');
-require('pages/sign-in.php');
-require('pages/members.php');
+require('lib/medoo.min.php');
 
 $database = new medoo([
     'database_type' => 'mysql',
@@ -20,6 +10,13 @@ $database = new medoo([
     'server' => '127.0.0.1',
     'username' => 'admin',
     'password' => 'admin']);
+
+require('util.php');
+
+require('pages/home.php');
+require('pages/tournaments.php');
+require('pages/sign-in.php');
+require('pages/members.php');
 
 function alert($level, $title, $text) {
     echo '<div class="alert alert-' . $level . '" style="margin-top: -7px;"><strong>' . $title . '</strong> ' . $text . '</div>';
@@ -45,15 +42,15 @@ if(array_key_exists('page', $_POST)) {
             break;
     }
 } else if(array_key_exists('add_tournament', $_POST)) {
-    add_tournament($_POST['add_tournament']['name'], $_POST['add_tournament']['date'], $_POST['add_tournament']['location']);
+    Util::add_tournament($_POST['add_tournament']['name'], $_POST['add_tournament']['date'], $_POST['add_tournament']['location']);
 } else if(array_key_exists('sign_in', $_POST)) {
-    sign_in_logic($_POST['sign_in']['email'], $_POST['sign_in']['pass']);
+    Util::sign_in($_POST['sign_in']['email'], $_POST['sign_in']['pass']);
 } else if(array_key_exists('sign_out', $_POST)) {
     session_unset();
     session_destroy();
     $_SESSION['loggedin'] = false;
 } else if(array_key_exists('logged_in', $_POST)) {
-    logged_in();
+    Util::logged_in();
 }
 
 ?>
