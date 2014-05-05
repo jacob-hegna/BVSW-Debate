@@ -14,6 +14,7 @@ $database = new medoo([
 require('util.php');
 
 require('pages/home.php');
+require('pages/profile.php');
 require('pages/tournaments.php');
 require('pages/sign-in.php');
 require('pages/members.php');
@@ -31,6 +32,9 @@ if(array_key_exists('page', $_POST)) {
         case 'home':
             get_home();
             break;
+        case 'profile':
+            get_profile(false);
+            break;
         case 'tournaments':
             get_tournaments();
             break;
@@ -44,6 +48,8 @@ if(array_key_exists('page', $_POST)) {
 } else if(array_key_exists('add_tournament', $_POST)) {
     Util::add_tournament($_POST['add_tournament']['name'], $_POST['add_tournament']['date'],
         $_POST['add_tournament']['location']);
+} else if(array_key_exists('name', $_POST)) {
+    echo Util::getUser($_SESSION['email'])[$_POST['name']];
 } else if(array_key_exists('sign_in', $_POST)) {
     Util::sign_in($_POST['sign_in']['email'], $_POST['sign_in']['pass']);
 } else if(array_key_exists('add_user', $_POST)) {

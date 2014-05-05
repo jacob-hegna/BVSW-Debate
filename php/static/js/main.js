@@ -14,7 +14,7 @@ $(document).ready(function() {
                 'Members'
             ];
             acc_controls = [
-                {'name': 'test', 'id': 'profile'},
+                {'name': 'Hello, ' + $.ajax({type:'post',url:'main.php',data:{name:'first'},async:false}).responseText, 'id': 'profile'},
                 {'name': 'Sign out', 'id': 'sign-out'}
             ];
         } else {
@@ -84,6 +84,22 @@ $(document).ready(function() {
             }
         }).done(function(data) {
             window.location = '';
+        });
+    });
+
+    $('#profile').on('click', function(e) {
+        $('.nav-item').each(function(i) {
+            $(this).removeClass('active');
+        });
+        e.preventDefault();
+        $.ajax({
+            type: 'post',
+            url: 'main.php',
+            data: {
+                page: 'profile'
+            }
+        }).done(function(data) {
+            $('#main').html(data);
         });
     });
 });

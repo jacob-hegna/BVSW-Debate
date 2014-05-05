@@ -3,7 +3,7 @@ function get_sign_in() {
     $page =
 '<div class="jumbotron">
     <h1 id="page-title">Sign in</h1>
-    <form class="form-group">
+    <form class="form-group" onsubmit="return false">
         <fieldset><input id="email-box" type="email" name="email" class="form-control" maxlength="40" placeholder="Email address" required="" autofocus=""></fieldset>
         <fieldset><input id="pass-box" type="password" name="password" class="form-control" placeholder="Password" required=""></fieldset>
         <div id="registerForm" class="panel-collapse collapse" style="margin-top: 10px;">
@@ -25,7 +25,7 @@ function get_sign_in() {
             </div>
         </div>
         <div class="btn-group btn-group-justified" style="margin-top: 0px;">
-            <a id="sign-in-submit" style="width:50%;" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</a>
+            <button id="sign-in-submit" style="width:100%;" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <a style="width:50%;" class="btn btn-lg btn-primary btn-block" data-toggle="collapse" data-target="#registerForm" href="javascript: clear_notifications(); $(\'#sign-in-submit\').html(\'Create account\'); $(\'#page-title\').html(\'Sign up\'); $(\'#toggleRegister\').hide();" id="toggleRegister">Register</a>
         </div>
     </form>

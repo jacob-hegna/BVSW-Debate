@@ -7,7 +7,7 @@ function get_home() {
     <h3>#NoDaysOff</h3>
 </div>
 <center>
-    <img src="../static/img/splash.jpg" width="600px"</img>
+    <img class="animated fadeInDown" src="../static/img/splash.jpg" width="600px"</img>
 </center>
 ';
     echo $page;
