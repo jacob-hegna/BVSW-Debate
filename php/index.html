@@ -5,10 +5,18 @@
     <title>BVSW Debate</title>
     <link rel="shortcut icon" href="static/img/favicon.ico">
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="static/css/theme.css" rel="stylesheet">
     <script src="static/js/jquery-2.1.0.min.js"></script>
+    <script src="static/js/underscore-min.js"></script>
 </head>
 <body>
+    <script>
+        function notify(level, title, text) {
+            $('#main').prepend('<div class="alert alert-' + level + '" style="margin-top: -7px;"><strong>'+ title + '</strong> ' + text + '</div>');
+        }
+        function clear_notifications() {$('.alert').each(function() {$(this).remove();});}
+    </script>
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -18,7 +26,7 @@
                 <ul id="navbar-left" class="nav navbar-nav"></ul>
                 <script id="left-nav-template" type="text/x-template">
                     <% _.each(pages, function(page) { %>
-                        <il><a href="#<%= page %>" class="btn btn-default navbar-btn nav-item"><%= page %></a></il>
+                        <il id="<%= page %>" class="ladda-button"><a href="#<%= page %>" class="btn btn-default navbar-btn nav-item ladda-label"><%= page %></a></il>
                     <% }); %>
                 </script>
                 <ul id="navbar-right" class="nav navbar-nav navbar-right">
@@ -40,8 +48,8 @@
             <p class="credit">The BVSW debate site is being developed by <a href="http://jacob-hegna.github.io/" target="_blank">Jacob Hegna</a>.  The <a href="https://github.com/jacob-hegna/BVSW-Debate/" target="_blank">source code</a> is hosted on Github.</p>
         </div>
     </div>
-    <script src="static/js/underscore-min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/bootstrap-select.min.js"></script>
     <script src="static/js/placeholders.js"></script>
     <script src="static/js/main.js"></script>
 </body>

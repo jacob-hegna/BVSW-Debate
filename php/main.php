@@ -7,9 +7,9 @@ require('lib/medoo.min.php');
 $database = new medoo([
     'database_type' => 'mysql',
     'database_name' => 'bvswdebate',
-    'server' => '127.0.0.1',
-    'username' => 'admin',
-    'password' => 'admin']);
+    'server' => SERVER_IP,
+    'username' => SERVER_USER,
+    'password' => SERVER_PASS]);
 
 require('util.php');
 
@@ -42,9 +42,13 @@ if(array_key_exists('page', $_POST)) {
             break;
     }
 } else if(array_key_exists('add_tournament', $_POST)) {
-    Util::add_tournament($_POST['add_tournament']['name'], $_POST['add_tournament']['date'], $_POST['add_tournament']['location']);
+    Util::add_tournament($_POST['add_tournament']['name'], $_POST['add_tournament']['date'],
+        $_POST['add_tournament']['location']);
 } else if(array_key_exists('sign_in', $_POST)) {
     Util::sign_in($_POST['sign_in']['email'], $_POST['sign_in']['pass']);
+} else if(array_key_exists('add_user', $_POST)) {
+    Util::add_user($_POST['add_user']['email'], $_POST['add_user']['pass'], $_POST['add_user']['name'],
+        $_POST['add_user']['num'], $_POST['add_user']['if_text'], $_POST['add_user']['carrier'], $_POST['add_user']['id']);
 } else if(array_key_exists('sign_out', $_POST)) {
     session_unset();
     session_destroy();

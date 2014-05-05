@@ -40,6 +40,7 @@ $(document).ready(function() {
     });
 
     $('.nav-item').on('click', function(e) {
+        clear_notifications();
         $('.nav-item').each(function(i) {
             $(this).removeClass('active');
         });

@@ -49,7 +49,7 @@ class Util {
                 echo 'password';
             }
         } else {
-            echo $email . ' email';
+
         }
     }
 
@@ -70,6 +70,37 @@ class Util {
                     'register' => '[]',
                     'attend'   => '[]']);
         echo get_tournaments();
+    }
+
+    public static function add_user($email, $pass, $name, $num, $if_text, $carrier, $id) {
+        global $database;
+        if(!$database->has('accounts', ['email' => $email])) {
+            if(!$database->has('accounts', ['number' => $num])) {
+                // PHP dark magic won't let me have three $database->has()
+                // I'm so sorry
+                if(!in_array($id, $database->select('accounts', 'student-id'))) {
+                    $database->insert('accounts', [
+                            'email'         => $email,
+                            'password'      => hash('sha256', $pass),
+                            'first'         => explode(' ', $name)[0],
+                            'last'          => explode(' ', $name)[1],
+                            'number'        => $num,
+                            'recieve-texts' => $if_text,
+                            'carrier'       => $carrier,
+                            'student-id'    => $id
+                        ]);
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['email'] = $email;
+                    echo '0';
+                } else {
+                    echo '-3';
+                }
+            } else {
+                echo '-2';
+            }
+        } else {
+            echo '-1';
+        }
     }
 }
 ?>
