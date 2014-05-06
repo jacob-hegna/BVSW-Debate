@@ -8,6 +8,7 @@ function get_sign_in() {
         <fieldset><input id="pass-box" type="password" name="password" class="form-control" placeholder="Password" required=""></fieldset>
         <div id="registerForm" class="panel-collapse collapse" style="margin-top: 10px;">
             <input id="pass-conf" class="form-control" type="password" placeholder="Confirm password">
+            <input id="verify-box" class="form-control" type="text" placeholder="Verification code">
             <input id="name-box" class="form-control" type="text" placeholder="Full name">
             <input id="id-box" class="form-control" type="text" placeholder="Student ID">
             <div class="input-group" style="margin-top: -1px;">
@@ -63,13 +64,14 @@ function get_sign_in() {
                         data: {
                             util: "add_user",
                             attr: {
-                                email:  $("#email-box").val(),
-                                pass:   $("#pass-box").val(),
+                                email:   $("#email-box").val(),
+                                pass:    $("#pass-box").val(),
                                 carrier: $("#carrier-box").val(),
                                 id:      $("#id-box").val(),
                                 if_text: $("#if-text").is(":checked") ? "1" : "0",
                                 name:    $("#name-box").val(),
-                                num:     $("#num-box").val().replace("-", "")
+                                num:     $("#num-box").val().replace("-", ""),
+                                verify:  $("#verify-box").val()
                             }
                         }
                     }).done(function(data) {
@@ -94,6 +96,12 @@ function get_sign_in() {
                                 $("#pass-conf").val("");
                                 $("#id-box").val("");
                                 $("#id-box").attr("autofocus", true);
+                                break;
+                            case "-4":
+                                notify("danger", "Error!", "Verification code is not correct!");
+                                $("#pass-conf").val("");
+                                $("#verify-box").val("");
+                                $("#verify-box").attr("autofocus", true);
                                 break;
                             default:
                                 notify("danger", "Well this is awkward,", "an unknown error occurred");

@@ -72,26 +72,30 @@ class Util {
         echo get_tournaments();
     }
 
-    public static function add_user($email, $pass, $name, $num, $if_text, $carrier, $id) {
+    public static function add_user($attr) {
         global $database;
-        if(!$database->has('accounts', ['email' => $email])) {
-            if(!$database->has('accounts', ['number' => $num])) {
+        if(!$database->has('accounts', ['email' => $attr['email']])) {
+            if(!$database->has('accounts', ['number' => $attr['num']])) {
                 // PHP dark magic won't let me have three $database->has()
                 // I'm so sorry
-                if(!in_array($id, $database->select('accounts', 'student-id'))) {
-                    $database->insert('accounts', [
-                            'email'         => $email,
-                            'password'      => hash('sha256', $pass),
-                            'first'         => explode(' ', $name)[0],
-                            'last'          => explode(' ', $name)[1],
-                            'number'        => $num,
-                            'recieve-texts' => $if_text,
-                            'carrier'       => $carrier,
-                            'student-id'    => $id
-                        ]);
-                    $_SESSION['loggedin'] = true;
-                    $_SESSION['email'] = $email;
-                    echo '0';
+                if(!in_array($attr['id'], $database->select('accounts', 'student-id'))) {
+                    if($attr['verify'] == VERIFY_CODE) {
+                        $database->insert('accounts', [
+                                'email'         => $attr['email'],
+                                'password'      => hash('sha256', $attr['pass']),
+                                'first'         => explode(' ', $attr['name'])[0],
+                                'last'          => explode(' ', $attr['name'])[1],
+                                'number'        => $attr['num'],
+                                'recieve-texts' => $attr['if_text'],
+                                'carrier'       => $attr['carrier'],
+                                'student-id'    => $attr['id']
+                            ]);
+                        $_SESSION['loggedin'] = true;
+                        $_SESSION['email'] = $attr['email'];
+                        echo '0';
+                    } else {
+                        echo '-4';
+                    }
                 } else {
                     echo '-3';
                 }

@@ -57,9 +57,7 @@ if(array_key_exists('page', $_POST)) {
             Util::sign_in($_POST['attr']['email'], $_POST['attr']['pass']);
             break;
         case 'add_user':
-            Util::add_user($_POST['attr']['email'], $_POST['attr']['pass'], $_POST['attr']['name'],
-                            $_POST['attr']['num'], $_POST['attr']['if_text'], $_POST['attr']['carrier'],
-                            $_POST['attr']['id']);
+            Util::add_user($_POST['attr']);
             break;
         case 'sign_out':
             session_unset();
