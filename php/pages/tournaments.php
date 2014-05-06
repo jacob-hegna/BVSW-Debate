@@ -34,13 +34,13 @@ function get_tournaments() {
                         if(!in_array(Util::getUser($_SESSION['email'])['id'], $register)) {
                             $showButton = true;
                             $content .=
-    '               <button class="btn btn-sm btn-primary" name="apply" type="submit">Apply</button>
+    '               <button class="btn btn-sm btn-primary tourn-apply" name="apply" type="submit">Apply</button>
                     <input type="hidden" name="id" value="'.$i['id'].'">
     ';
                         } else if(!in_array(Util::getUser($_SESSION['email'])['id'], $attend)) {
                             $showButton = true;
                             $content .=
-    '               <button class="btn btn-sm btn-primary" name="remove" type="submit">Can\'t go?</button>
+    '               <button class="btn btn-sm btn-primary tourn-reject" name="remove" type="submit">Can\'t go?</button>
                     <input type="hidden" name="id" value="'.$i['id'].'">';
                         }
 
