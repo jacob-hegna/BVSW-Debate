@@ -83,7 +83,8 @@ function get_tournaments() {
                                     type: "post",
                                     url: "main.php",
                                     data: {
-                                        add_tournament: {
+                                        util: "add_tournament",
+                                        attr: {
                                             name:         $("#name-box").val(),
                                             date:         $("#date-box").val(),
                                             location:     $("#location-box").val()

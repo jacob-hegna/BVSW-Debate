@@ -6,7 +6,9 @@ $(document).ready(function() {
     if($.ajax({
         type: 'post',
         url: 'main.php',
-        data: {logged_in: ''},
+        data: {
+            util: 'logged_in'
+        },
         async: false
     }).responseText == '1') {
             pages = [
@@ -14,7 +16,7 @@ $(document).ready(function() {
                 'Members'
             ];
             acc_controls = [
-                {'name': 'Hello, ' + $.ajax({type:'post',url:'main.php',data:{name:'first'},async:false}).responseText, 'id': 'profile'},
+                {'name': 'Hello, ' + $.ajax({type:'post',url:'main.php',data:{util:'name',attr:{type:'first'}},async:false}).responseText, 'id': 'profile'},
                 {'name': 'Sign out', 'id': 'sign-out'}
             ];
         } else {
@@ -80,7 +82,7 @@ $(document).ready(function() {
             type: 'post',
             url: 'main.php',
             data: {
-                sign_out: ''
+                util: 'sign_out'
             }
         }).done(function(data) {
             window.location = '';

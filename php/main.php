@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require('../../data/config.php');
+require('config.php');
 require('lib/medoo.min.php');
 
 $database = new medoo([
@@ -18,10 +18,6 @@ require('pages/profile.php');
 require('pages/tournaments.php');
 require('pages/sign-in.php');
 require('pages/members.php');
-
-function alert($level, $title, $text) {
-    echo '<div class="alert alert-' . $level . '" style="margin-top: -7px;"><strong>' . $title . '</strong> ' . $text . '</div>';
-}
 
 if(!array_key_exists('loggedin', $_SESSION)) {
     $_SESSION['loggedin'] = false;
@@ -44,23 +40,39 @@ if(array_key_exists('page', $_POST)) {
         case 'sign_in':
             get_sign_in();
             break;
+        default:
+            echo '-1'; // failure
+            break;
     }
-} else if(array_key_exists('add_tournament', $_POST)) {
-    Util::add_tournament($_POST['add_tournament']['name'], $_POST['add_tournament']['date'],
-        $_POST['add_tournament']['location']);
-} else if(array_key_exists('name', $_POST)) {
-    echo Util::getUser($_SESSION['email'])[$_POST['name']];
-} else if(array_key_exists('sign_in', $_POST)) {
-    Util::sign_in($_POST['sign_in']['email'], $_POST['sign_in']['pass']);
-} else if(array_key_exists('add_user', $_POST)) {
-    Util::add_user($_POST['add_user']['email'], $_POST['add_user']['pass'], $_POST['add_user']['name'],
-        $_POST['add_user']['num'], $_POST['add_user']['if_text'], $_POST['add_user']['carrier'], $_POST['add_user']['id']);
-} else if(array_key_exists('sign_out', $_POST)) {
-    session_unset();
-    session_destroy();
-    $_SESSION['loggedin'] = false;
-} else if(array_key_exists('logged_in', $_POST)) {
-    Util::logged_in();
+} else if(array_key_exists('util', $_POST)) {
+    switch($_POST['util']) {
+        case 'add_tournament':
+            Util::add_tournament($_POST['attr']['name'], $_POST['attr']['date'],
+                                $_POST['attr']['location']);
+            break;
+        case 'name':
+            echo Util::getUser($_SESSION['email'])[$_POST['attr']['type']];
+            break;
+        case 'sign_in':
+            Util::sign_in($_POST['attr']['email'], $_POST['attr']['pass']);
+            break;
+        case 'add_user':
+            Util::add_user($_POST['attr']['email'], $_POST['attr']['pass'], $_POST['attr']['name'],
+                            $_POST['attr']['num'], $_POST['attr']['if_text'], $_POST['attr']['carrier'],
+                            $_POST['attr']['id']);
+            break;
+        case 'sign_out':
+            session_unset();
+            session_destroy();
+            $_SESSION['loggedin'] = false;
+            break;
+        case 'logged_in':
+            Util::logged_in();
+            break;
+        default:
+            echo '-1'; // failure
+            break;
+    }
 }
 
 ?>

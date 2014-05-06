@@ -12,6 +12,7 @@ function get_sign_in() {
             <input id="id-box" class="form-control" type="text" placeholder="Student ID">
             <div class="input-group" style="margin-top: -1px;">
                 <span class="input-group-addon" style="border-top-left-radius: 0;">
+                    Receive texts?
                     <input id="if-text" type="checkbox" name="texting">
                 </span>
                 <input id="num-box" class="form-control" type="text" placeholder="Phone number (xxx-xxx-xxxx)" maxlength="12" style="border-top-right-radius: 0;">
@@ -39,7 +40,8 @@ function get_sign_in() {
                     type: "post",
                     url: "main.php",
                     data: {
-                        sign_in: {
+                        util: "sign_in",
+                        attr: {
                             email: $("#email-box").val(),
                             pass:  $("#pass-box").val()
                         }
@@ -59,7 +61,8 @@ function get_sign_in() {
                         type: "post",
                         url: "main.php",
                         data: {
-                            add_user: {
+                            util: "add_user",
+                            attr: {
                                 email:  $("#email-box").val(),
                                 pass:   $("#pass-box").val(),
                                 carrier: $("#carrier-box").val(),
