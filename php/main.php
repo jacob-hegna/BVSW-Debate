@@ -69,8 +69,6 @@ if(array_key_exists('page', $_POST)) {
         case 'logged_in':
             Util::logged_in();
             break;
-        case 'test_explode':
-            echo explode(' ', $_POST['attr']['test'])[0];
         default:
             echo '-1'; // failure
             break;
