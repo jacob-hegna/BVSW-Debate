@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require('../../data/config.php');
+require('config.php');
 require('lib/medoo.min.php');
 
 $database = new medoo([
@@ -16,8 +16,9 @@ require('util.php');
 require('pages/home.php');
 require('pages/profile.php');
 require('pages/tournaments.php');
-require('pages/sign-in.php');
+require('pages/signin.php');
 require('pages/members.php');
+require('pages/error.php');
 
 if(!array_key_exists('loggedin', $_SESSION)) {
     $_SESSION['loggedin'] = false;
@@ -29,19 +30,33 @@ if(array_key_exists('page', $_POST)) {
             get_home();
             break;
         case 'profile':
-            get_profile(false);
+            if($_SESSION['loggedin']) {
+                get_profile(false);
+            } else {
+                get_error(403);
+            }
             break;
         case 'tournaments':
             get_tournaments();
             break;
         case 'members':
-            get_members();
+            if($_SESSION['loggedin']) {
+                get_members();
+            } else {
+                get_error(403);
+            }
             break;
-        case 'sign_in':
+        case 'signin':
             get_sign_in();
             break;
+        case 'signout':
+            session_unset();
+            session_destroy();
+            $_SESSION['loggedin'] = false;
+            echo 'refresh';
+            break;
         default:
-            echo '-1'; // failure
+            get_error(404);
             break;
     }
 } else if(array_key_exists('util', $_POST)) {

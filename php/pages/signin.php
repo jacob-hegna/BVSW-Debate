@@ -4,8 +4,8 @@ function get_sign_in() {
 '<div class="jumbotron">
     <h1 id="page-title">Sign in</h1>
     <form class="form-group" onsubmit="return false">
-        <fieldset><input id="email-box" type="email" name="email" class="form-control" maxlength="40" placeholder="Email address" required="" autofocus=""></fieldset>
-        <fieldset><input id="pass-box" type="password" name="password" class="form-control" placeholder="Password" required=""></fieldset>
+        <input id="email-box" type="email" name="email" class="form-control" maxlength="40" placeholder="Email address" required="" autofocus="">
+        <input id="pass-box" type="password" name="password" class="form-control" placeholder="Password" required="">
         <div id="registerForm" class="panel-collapse collapse" style="margin-top: 10px;">
             <input id="pass-conf" class="form-control" type="password" placeholder="Confirm password">
             <input id="verify-box" class="form-control" type="text" placeholder="Verification code">
@@ -39,7 +39,7 @@ function get_sign_in() {
                 e.preventDefault();
                 $.ajax({
                     type: "post",
-                    url: "main.php",
+                    url: "/main.php",
                     data: {
                         util: "sign_in",
                         attr: {
@@ -49,7 +49,7 @@ function get_sign_in() {
                     }
                 }).done(function(data) {
                     if(data == "success") {
-                        window.location = "";
+                        window.location = "/home/";
                     } else {
                         notify("danger", "Error!", "Either email or password is incorrect!");
                         $("#pass-box").val("");
@@ -60,7 +60,7 @@ function get_sign_in() {
                 if($("#pass-box").val() == $("#pass-conf").val()) {
                     $.ajax({
                         type: "post",
-                        url: "main.php",
+                        url: "/main.php",
                         data: {
                             util: "add_user",
                             attr: {
@@ -77,7 +77,7 @@ function get_sign_in() {
                     }).done(function(data) {
                         switch(data) {
                             case "0":
-                                window.location = "";
+                                window.location = "/home/";
                                 break;
                             case "-1":
                                 notify("danger", "Error!", "Email already in database!");

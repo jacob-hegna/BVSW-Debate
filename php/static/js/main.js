@@ -1,11 +1,12 @@
 var
-    pages        = [],
-    acc_controls = [];
+    pages           = [],
+    acc_controls    = [],
+    url_params      = [];
 
 $(document).ready(function() {
     if($.ajax({
         type: 'post',
-        url: 'main.php',
+        url: '/main.php',
         data: {
             util: 'logged_in'
         },
@@ -16,29 +17,36 @@ $(document).ready(function() {
                 'Members'
             ];
             acc_controls = [
-                {'name': 'Hello, ' + $.ajax({type:'post',url:'main.php',data:{util:'name',attr:{type:'first'}},async:false}).responseText, 'id': 'profile'},
-                {'name': 'Sign out', 'id': 'sign-out'}
+                {'name': 'Hello, ' + $.ajax({type:'post',url:'/main.php',data:{util:'name',attr:{type:'first'}},async:false}).responseText, 'id': 'profile'},
+                {'name': 'Sign out', 'id': 'signout'}
             ];
         } else {
             pages = [
                 'Tournaments'
             ];
             acc_controls = [
-                {'name': 'Sign in', 'id': 'sign-in'}
+                {'name': 'Sign in', 'id': 'signin'}
             ];
         };
 
     $('#navbar-left').html(_.template($('#left-nav-template').html(), pages));
     $('#navbar-right').html(_.template($('#right-nav-template').html(), acc_controls));
 
+    var url  = $.url();
+    var p    = url.segment(1);
+
     $.ajax({
         type: 'post',
-        url: 'main.php',
+        url: '/main.php',
         data: {
-                page: 'home'
+                page: p
         }
     }).done(function(data) {
-        $('#main').html(data);
+        if(data != 'refresh') {
+            $('#main').html(data);
+        } else {
+            window.location('home');
+        }
     });
 
     $('.nav-item').on('click', function(e) {
@@ -48,31 +56,20 @@ $(document).ready(function() {
         });
         $(this).addClass('active');
         e.preventDefault();
-        current = $(this).attr('href').replace('#', '').toLowerCase();
+        current = $(this).attr('href').split('#')[1].toLowerCase();
+        history.pushState({}, '', '/' + current + '/');
         $.ajax({
             type: 'post',
-            url: 'main.php',
+            url: '/main.php',
             data: {
-                page: $(this).attr('href').replace('#', '').toLowerCase()
+                page: current
             }
         }).done(function(data) {
-            $('#main').html(data);
-        });
-    });
-
-    $('#sign-in').on('click', function(e) {
-        $('.nav-item').each(function(i) {
-            $(this).removeClass('active');
-        });
-        e.preventDefault();
-        $.ajax({
-            type: 'post',
-            url: 'main.php',
-            data: {
-                page: 'sign_in'
+            if(data != 'refresh') {
+                $('#main').html(data);
+            } else {
+                window.location = '/home/';
             }
-        }).done(function(data) {
-            $('#main').html(data);
         });
     });
 
@@ -80,28 +77,12 @@ $(document).ready(function() {
         e.preventDefault();
         $.ajax({
             type: 'post',
-            url: 'main.php',
+            url: '/main.php',
             data: {
                 util: 'sign_out'
             }
         }).done(function(data) {
-            window.location = '';
-        });
-    });
-
-    $('#profile').on('click', function(e) {
-        $('.nav-item').each(function(i) {
-            $(this).removeClass('active');
-        });
-        e.preventDefault();
-        $.ajax({
-            type: 'post',
-            url: 'main.php',
-            data: {
-                page: 'profile'
-            }
-        }).done(function(data) {
-            $('#main').html(data);
+            window.location = '/home/';
         });
     });
 });
