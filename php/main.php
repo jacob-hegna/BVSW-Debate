@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require('../../data/config.php');
+require('config.php');
 require('lib/medoo.min.php');
 
 $database = new medoo([

@@ -1,7 +1,8 @@
 var
     pages           = [],
     acc_controls    = [],
-    url_params      = [];
+    url_params      = [],
+    load_progress   = 0;
 
 $(document).ready(function() {
     if($.ajax({
@@ -35,6 +36,8 @@ $(document).ready(function() {
     var url  = $.url();
     var p    = url.segment(1);
 
+    $('#loadbar').loadie();
+
     $.ajax({
         type: 'post',
         url: '/main.php',
@@ -58,6 +61,8 @@ $(document).ready(function() {
         e.preventDefault();
         current = $(this).attr('href').split('#')[1].toLowerCase();
         history.pushState({}, '', '/' + current + '/');
+        $('#loadbar').loadie(.1);
+        $('.loadie').fadeIn();
         $.ajax({
             type: 'post',
             url: '/main.php',
@@ -67,6 +72,9 @@ $(document).ready(function() {
         }).done(function(data) {
             if(data != 'refresh') {
                 $('#main').html(data);
+                setTimeout(function() {
+                    $('#loadbar').loadie(1);
+                }, 300)
             } else {
                 window.location = '/home/';
             }
