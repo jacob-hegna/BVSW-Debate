@@ -56,7 +56,11 @@ if(array_key_exists('page', $_POST)) {
             echo 'refresh';
             break;
         default:
-            get_error(404);
+            if($_POST['page'] != '') {
+                get_error(404);
+            } else {
+                get_home();
+            }
             break;
     }
 } else if(array_key_exists('util', $_POST)) {
