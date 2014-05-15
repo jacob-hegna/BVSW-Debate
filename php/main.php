@@ -16,6 +16,7 @@ require('util.php');
 require('pages/home.php');
 require('pages/profile.php');
 require('pages/tournaments.php');
+require('pages/tournament-table.php');
 require('pages/signin.php');
 require('pages/members.php');
 require('pages/error.php');
@@ -85,6 +86,9 @@ if(array_key_exists('page', $_POST)) {
             break;
         case 'logged_in':
             Util::logged_in();
+            break;
+        case 'tournament_table':
+            get_tournament_table($_POST['attr']['type']);
             break;
         default:
             echo '-1'; // failure
