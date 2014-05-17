@@ -74,7 +74,7 @@ $(document).ready(function() {
                 $('#main').html(data);
                 setTimeout(function() {
                     $('#loadbar').loadie(1);
-                }, 300)
+                }, 200)
             } else {
                 window.location = '/home/';
             }
@@ -91,6 +91,25 @@ $(document).ready(function() {
             }
         }).done(function(data) {
             window.location = '/home/';
+        });
+    });
+
+    $('#about').on('click', function(e) {
+        e.preventDefault();
+        $('#loadbar').loadie(.1);
+        $('.loadie').fadeIn();
+        history.pushState({}, '', '/about/');
+        $.ajax({
+            type: 'post',
+            url: '/main.php',
+            data: {
+                page: 'about'
+            }
+        }).done(function(data) {
+            $('#main').html(data);
+            setTimeout(function() {
+                $('#loadbar').loadie(1);
+            }, 200)
         });
     });
 });

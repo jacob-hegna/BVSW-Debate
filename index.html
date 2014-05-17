@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BVSW Debate</title>
     <link rel="shortcut icon" href="/static/img/favicon.ico">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -22,10 +23,15 @@
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a href="#home" class="navbar-brand nav-item">BVSW Debate <img src="/static/img/monochrome-trophy.png"></a>
             </div>
             <div class="collapse navbar-collapse">
-                <ul id="navbar-left" class="nav navbar-nav"></ul>
+                <ul id="navbar-left" class="nav navbar-nav navbar-left"></ul>
                 <script id="left-nav-template" type="text/x-template">
                     <% _.each(pages, function(page) { %>
                         <il><a id="<%= page %>" href="#<%= page %>" data-tyle="expand-right" class="btn btn-default navbar-btn nav-item"><%= page %></a></il>
@@ -48,7 +54,7 @@
     </div>
     <div id="footer">
         <div class="container" id="creditContainer">
-            <p class="credit">The BVSW debate site is being developed by <a href="http://jacob-hegna.github.io/" target="_blank">Jacob Hegna</a>.</p>
+            <p class="credit">The BVSW debate site is being developed by <a href="http://jacob-hegna.github.io/" target="_blank">Jacob Hegna</a>, read about it <a id="about" href="#about">here</a>.</p>
         </div>
     </div>
     <script src="/static/js/bootstrap.min.js"></script>

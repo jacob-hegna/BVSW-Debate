@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require('../../data/config.php');
+require('config.php');
 require('lib/medoo.min.php');
 
 $database = new medoo([
@@ -14,6 +14,7 @@ $database = new medoo([
 require('util.php');
 
 require('pages/home.php');
+require('pages/about.php');
 require('pages/profile.php');
 require('pages/tournaments.php');
 require('pages/tournament-table.php');
@@ -46,6 +47,9 @@ if(array_key_exists('page', $_POST)) {
             } else {
                 get_error(403);
             }
+            break;
+        case 'about':
+            get_about();
             break;
         case 'signin':
             get_sign_in();
