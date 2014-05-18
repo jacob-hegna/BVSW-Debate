@@ -1,7 +1,7 @@
 BVSW Debate
 ========
 
-The official website of the Blue Valley Southwest debate team
+The (un)official website of the Blue Valley Southwest debate team
 
 Developed originally by Jacob Hegna
 
