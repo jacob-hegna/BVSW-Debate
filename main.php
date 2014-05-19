@@ -71,8 +71,8 @@ if(array_key_exists('page', $_POST)) {
 } else if(array_key_exists('util', $_POST)) {
     switch($_POST['util']) {
         case 'add_tournament':
-            Util::add_tournament($_POST['attr']['name'], $_POST['attr']['date'],
-                                $_POST['attr']['location']);
+            Util::add_tournament($_POST['attr']['type'], $_POST['attr']['name'],
+                            $_POST['attr']['date'], $_POST['attr']['location']);
             break;
         case 'name':
             echo Util::getUser($_SESSION['email'])[$_POST['attr']['type']];

@@ -61,9 +61,12 @@ class Util {
         }
     }
 
-    public static function add_tournament($name, $date, $loc) {
+    public static function add_tournament($type, $name, $date, $loc) {
         global $database;
-        $database->insert('tournaments', [
+        if(!in_array($type, ['novice', 'open', 'varsity', 'toc'])) {
+            $type = 'novice';
+        }
+        $database->insert($type, [
                     'name' => $name,
                     'date' => $date,
                     'location' => $loc,

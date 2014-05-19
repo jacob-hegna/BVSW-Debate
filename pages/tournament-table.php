@@ -1,7 +1,7 @@
 <?php
 function get_tournament_table($type) {
     global $database;
-    $content = 
+    $content =
 '    <table class="table table-hover" style="margin-top: 50px; text-align: left; font-size: medium;">
             <thead>
             <th>Name</th>
@@ -74,15 +74,22 @@ function get_tournament_table($type) {
                     <script>
                         $("#add-tournament").on("click", function(e) {
                             e.preventDefault();
-                            if($("#name-box").val().trim() &&
-                               $("#date-box").val().trim() &&
-                               $("#location-box").val().trim()) {
+                            if($("#name-box").val().trim().length > 0 &&
+                               $("#date-box").val().trim().length > 0 &&
+                               $("#location-box").val().trim().length > 0) {
+                                var seg = $.url().segment(2);
+                                if(seg != undefined) {
+                                    seg = seg.toLowerCase();
+                                } else {
+                                    seg = "novice";
+                                }
                                 $.ajax({
                                     type: "post",
                                     url: "main.php",
                                     data: {
                                         util: "add_tournament",
                                         attr: {
+                                            type:         seg,
                                             name:         $("#name-box").val(),
                                             date:         $("#date-box").val(),
                                             location:     $("#location-box").val()
