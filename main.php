@@ -13,11 +13,14 @@ $database = new medoo([
 
 require('util.php');
 
+require('pages/generics.php');
 require('pages/home.php');
 require('pages/about.php');
 require('pages/profile.php');
 require('pages/tournaments.php');
 require('pages/tournament-table.php');
+require('pages/checkout.php');
+require('pages/checkout-table.php');
 require('pages/signin.php');
 require('pages/members.php');
 require('pages/error.php');
@@ -40,6 +43,13 @@ if(array_key_exists('page', $_POST)) {
             break;
         case 'tournaments':
             get_tournaments();
+            break;
+        case 'checkout':
+            if($_SESSION['loggedin']) {
+                get_checkout();
+            } else {
+                get_error(403);
+            }
             break;
         case 'members':
             if($_SESSION['loggedin']) {
@@ -93,6 +103,15 @@ if(array_key_exists('page', $_POST)) {
             break;
         case 'tournament_table':
             get_tournament_table($_POST['attr']['type']);
+            break;
+        case 'checkout_table':
+            get_checkout_table($_POST['attr']['type']);
+            break;
+        case 'pick_laptop':
+            $database->update('laptops', ['taken' => $_POST['attr']['user']], ['id' => $_POST['attr']['id']]);
+            break;
+        case 'pick_stand':
+            $database->update('stands', ['taken' => $_POST['attr']['user']], ['id' => $_POST['attr']['id']]);
             break;
         default:
             echo '-1'; // failure

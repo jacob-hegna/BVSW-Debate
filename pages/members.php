@@ -9,7 +9,6 @@ function get_members() {
         <thead>
         <th>Name</th>
         <th>Email</th>
-        ' . (Util::getUser($_SESSION['email'])['rank'] >= 2 ? '<th>Student ID</th>' : '') . '
         <th>Phone Number</th>
         </thead>
         <tbody>';
@@ -34,7 +33,6 @@ function get_members() {
 '           <tr>
             <td>' . $i['first'] . ' ' . $i['last'] . ' <span class="label label-'.$rankColor.'">' . Util::getRank($i['rank']) . '</span></td>
             <td>' . $i['email'] . '</td>
-            ' . (Util::getUser($_SESSION['email'])['rank'] >= 2 ? '<td>' . $i['student-id'] . '</td>' : '') . '
             <td>' . Util::formatPhoneNum($i['number']) . '</td></tr>';
             }
 

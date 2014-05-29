@@ -10,12 +10,7 @@ function get_sign_in() {
             <input id="pass-conf" class="form-control" type="password" placeholder="Confirm password">
             <input id="verify-box" class="form-control" type="text" placeholder="Verification code">
             <input id="name-box" class="form-control" type="text" placeholder="Full name">
-            <input id="id-box" class="form-control" type="text" placeholder="Student ID">
             <div class="input-group" style="margin-top: -1px;">
-                <span class="input-group-addon" style="border-top-left-radius: 0;">
-                    Receive texts?
-                    <input id="if-text" type="checkbox" name="texting">
-                </span>
                 <input id="num-box" class="form-control" type="text" placeholder="Phone number (xxx-xxx-xxxx)" maxlength="12" style="border-top-right-radius: 0;">
                 <span class="input-group-addon">@</span>
                 <select id="carrier-box" class="selectpicker" data-style="btn-success">
@@ -58,57 +53,61 @@ function get_sign_in() {
                 });
             } else {
                 if($("#pass-box").val() == $("#pass-conf").val()) {
-                    $.ajax({
-                        type: "post",
-                        url: "/main.php",
-                        data: {
-                            util: "add_user",
-                            attr: {
-                                email:   $("#email-box").val(),
-                                pass:    $("#pass-box").val(),
-                                carrier: $("#carrier-box").val(),
-                                id:      $("#id-box").val(),
-                                if_text: $("#if-text").is(":checked") ? "1" : "0",
-                                name:    $("#name-box").val(),
-                                num:     $("#num-box").val().replace("-", ""),
-                                verify:  $("#verify-box").val()
+                    if($("#num-box").val().length == 10) {
+                        $.ajax({
+                            type: "post",
+                            url: "/main.php",
+                            data: {
+                                util: "add_user",
+                                attr: {
+                                    email:   $("#email-box").val(),
+                                    pass:    $("#pass-box").val(),
+                                    carrier: $("#carrier-box").val(),
+                                    name:    $("#name-box").val(),
+                                    num:     $("#num-box").val().replace("-", ""),
+                                    verify:  $("#verify-box").val()
+                                }
                             }
-                        }
-                    }).done(function(data) {
-                        switch(data) {
-                            case "0":
-                                window.location = "/home/";
-                                break;
-                            case "-1":
-                                notify("danger", "Error!", "Email already in database!");
-                                $("#pass-conf").val("");
-                                $("#email-box").val("");
-                                $("#email-box").attr("autofocus", true);
-                                break;
-                            case "-2":
-                                notify("danger", "Error!", "Number already in database!");
-                                $("#pass-conf").val("");
-                                $("#num-box").val("");
-                                $("#num-box").attr("autofocus", true);
-                                break;
-                            case "-3":
-                                notify("danger", "Error!", "Student ID already in database!");
-                                $("#pass-conf").val("");
-                                $("#id-box").val("");
-                                $("#id-box").attr("autofocus", true);
-                                break;
-                            case "-4":
-                                notify("danger", "Error!", "Verification code is not correct!");
-                                $("#pass-conf").val("");
-                                $("#verify-box").val("");
-                                $("#verify-box").attr("autofocus", true);
-                                break;
-                            default:
-                                notify("danger", "Well this is awkward,", "an unknown error occurred");
-                                $("#pass-conf").val("");
-                                break;
-                        }
-                    });
+                        }).done(function(data) {
+                            switch(data) {
+                                case "0":
+                                    window.location = "/home/";
+                                    break;
+                                case "-1":
+                                    notify("danger", "Error!", "Email already in database!");
+                                    $("#pass-conf").val("");
+                                    $("#email-box").val("");
+                                    $("#email-box").attr("autofocus", true);
+                                    break;
+                                case "-2":
+                                    notify("danger", "Error!", "Number already in database!");
+                                    $("#pass-conf").val("");
+                                    $("#num-box").val("");
+                                    $("#num-box").attr("autofocus", true);
+                                    break;
+                                case "-3":
+                                    notify("danger", "Error!", "Student ID already in database!");
+                                    $("#pass-conf").val("");
+                                    $("#id-box").val("");
+                                    $("#id-box").attr("autofocus", true);
+                                    break;
+                                case "-4":
+                                    notify("danger", "Error!", "Verification code is not correct!");
+                                    $("#pass-conf").val("");
+                                    $("#verify-box").val("");
+                                    $("#verify-box").attr("autofocus", true);
+                                    break;
+                                default:
+                                    notify("danger", "Well this is awkward,", "an unknown error occurred");
+                                    $("#pass-conf").val("");
+                                    break;
+                            }
+                        });
+                    } else {
+                        notify("danger", "Error!", "Invalid phone number!");
+                        $("#pass-conf").val("");
+                        $("#num-box").attr("autofocus", true);
+                    }
                 } else {
                     notify("danger", "Error!", "Passwords don\'t match!");
                     $("#pass-conf").val("");

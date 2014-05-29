@@ -15,7 +15,8 @@ $(document).ready(function() {
     }).responseText == '1') {
             pages = [
                 'Tournaments',
-                'Members'
+                'Members',
+                'Checkout'
             ];
             acc_controls = [
                 {'name': 'Hello, ' + $.ajax({type:'post',url:'/main.php',data:{util:'name',attr:{type:'first'}},async:false}).responseText, 'id': 'profile'},

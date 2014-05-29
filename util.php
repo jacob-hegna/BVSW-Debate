@@ -5,6 +5,11 @@ class Util {
         return $database->get('accounts', '*', ['email' => $email]);
     }
 
+    public static function getUserById($id) {
+        global $database;
+        return $database->get('accounts', '*', ['id' => $id]);
+    }
+
     public static function editUser($email, $field, $new) {
         global $database;
         $database->update('accounts', [$field => $new], ['email' => $email]);
@@ -79,26 +84,18 @@ class Util {
         global $database;
         if(!$database->has('accounts', ['email' => $attr['email']])) {
             if(!$database->has('accounts', ['number' => $attr['num']])) {
-                // PHP dark magic won't let me have three $database->has()
-                // I'm so sorry
-                if(!in_array($attr['id'], $database->select('accounts', 'student-id'))) {
-                    if($attr['verify'] == VERIFY_CODE) {
-                        $database->insert('accounts', [
-                                'email'         => $attr['email'],
-                                'password'      => hash('sha256', $attr['pass']),
-                                'first'         => explode(' ', $attr['name'])[0],
-                                'last'          => explode(' ', $attr['name'])[1],
-                                'number'        => $attr['num'],
-                                'recieve-texts' => $attr['if_text'],
-                                'carrier'       => $attr['carrier'],
-                                'student-id'    => $attr['id']
-                            ]);
-                        $_SESSION['loggedin'] = true;
-                        $_SESSION['email'] = $attr['email'];
-                        echo '0';
-                    } else {
-                        echo '-4';
-                    }
+                if($attr['verify'] == VERIFY_CODE) {
+                    $database->insert('accounts', [
+                            'email'         => $attr['email'],
+                            'password'      => hash('sha256', $attr['pass']),
+                            'first'         => explode(' ', $attr['name'])[0],
+                            'last'          => explode(' ', $attr['name'])[1],
+                            'number'        => $attr['num'],
+                            'carrier'       => $attr['carrier']
+                        ]);
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['email'] = $attr['email'];
+                    echo '0';
                 } else {
                     echo '-3';
                 }
