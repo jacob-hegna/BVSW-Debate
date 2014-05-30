@@ -12,18 +12,7 @@ $database = new medoo([
     'password' => SERVER_PASS]);
 
 require('util.php');
-
-require('pages/generics.php');
-require('pages/home.php');
-require('pages/about.php');
-require('pages/profile.php');
-require('pages/tournaments.php');
-require('pages/tournament-table.php');
-require('pages/checkout.php');
-require('pages/checkout-table.php');
-require('pages/signin.php');
-require('pages/members.php');
-require('pages/error.php');
+require('pages/pages.php');
 
 if(!array_key_exists('loggedin', $_SESSION)) {
     $_SESSION['loggedin'] = false;
@@ -60,6 +49,15 @@ if(array_key_exists('page', $_POST)) {
             break;
         case 'about':
             get_about();
+            break;
+        case 'dropbox':
+            get_dropbox();
+            break;
+        case 'debate-videos':
+            get_videos();
+            break;
+        case 'new-computer-setup':
+            get_new_computer();
             break;
         case 'signin':
             get_sign_in();

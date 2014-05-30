@@ -5,6 +5,11 @@ var
     load_progress   = 0;
 
 $(document).ready(function() {
+    var resources = {title: 'Resources',
+                     links: [
+                     'Dropbox',
+                     'Debate Videos',
+                     'New Computer Setup']};
     if($.ajax({
         type: 'post',
         url: '/main.php',
@@ -16,7 +21,8 @@ $(document).ready(function() {
             pages = [
                 'Tournaments',
                 'Members',
-                'Checkout'
+                'Checkout',
+                resources
             ];
             acc_controls = [
                 {'name': 'Hello, ' + $.ajax({type:'post',url:'/main.php',data:{util:'name',attr:{type:'first'}},async:false}).responseText, 'id': 'profile'},
@@ -24,7 +30,7 @@ $(document).ready(function() {
             ];
         } else {
             pages = [
-                'Tournaments'
+                'Tournaments', resources
             ];
             acc_controls = [
                 {'name': 'Sign in', 'id': 'signin'}
@@ -60,7 +66,7 @@ $(document).ready(function() {
         });
         $(this).addClass('active');
         e.preventDefault();
-        current = $(this).attr('href').split('#')[1].toLowerCase();
+        current = $(this).attr('href').split('#')[1].replace(/ /g, '-').toLowerCase();
         history.pushState({}, '', '/' + current + '/');
         $('#loadbar').loadie(.1);
         $('.loadie').fadeIn();

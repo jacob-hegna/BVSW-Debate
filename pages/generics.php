@@ -1,25 +1,4 @@
 <?php
-class Page {
-    public $top    = '<div class="jumbotron">';
-    public $middle = '';
-    public $bottom = '</div>';
-
-    public function __construct() {
-
-    }
-
-    public function insert($p) {
-        $this->middle = $this->middle . $p;
-    }
-
-    public function update($p) {
-        $this->middle = $p;
-    }
-
-    public function write() {
-        echo $this->top . $this->middle . $this->bottom;
-    }
-}
 
 class Tabbed {
     public $top     = '<div class="jumbotron">';

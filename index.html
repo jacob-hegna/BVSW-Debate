@@ -35,7 +35,23 @@
                 <ul id="navbar-left" class="nav navbar-nav navbar-left"></ul>
                 <script id="left-nav-template" type="text/x-template">
                     <% _.each(pages, function(page) { %>
-                        <il><a id="<%= page %>" href="#<%= page %>" data-tyle="expand-right" class="btn btn-default navbar-btn nav-item"><%= page %></a></il>
+                        <% if($.type(page) == 'object') { %>
+                            <il>
+                                <div class="btn-group">
+                                    <a id="<%= page.title %>" type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
+                                        <%= page.title %>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <% _.each(page.links, function(link) { %>
+                                            <li><a id="<%= link %>" href="#<%= link %>" class="nav-item"><%= link %></a></li>
+                                        <% }); %>
+                                    </ul>
+                                </div>
+                            </il>
+                        <% } else { %>
+                            <il><a id="<%= page %>" href="#<%= page %>" class="btn btn-default navbar-btn nav-item"><%= page %></a></il>
+                        <% } %>
                     <% }); %>
                 </script>
                 <ul id="navbar-right" class="nav navbar-nav navbar-right">
