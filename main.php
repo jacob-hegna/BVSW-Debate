@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 require('config.php');
 require('lib/medoo.min.php');
 
@@ -81,6 +82,18 @@ if(array_key_exists('page', $_POST)) {
         case 'add_tournament':
             Util::add_tournament($_POST['attr']['type'], $_POST['attr']['name'],
                             $_POST['attr']['date'], $_POST['attr']['location']);
+            break;
+        case 'pick_tournament':
+            $register = json_decode($database->get($_POST['attr']['type'], 'register', ['id' => $_POST['attr']['tournament']]));
+            $attend   = json_decode($database->get($_POST['attr']['type'], 'attend', ['id' => $_POST['attr']['tournament']]));
+            if($_POST['attr']['reg'] == '0') {
+                $register = array_values(array_diff($register, array(Util::getUser($_SESSION['email'])['id'])));
+            } else {
+                array_push($register, Util::getUser($_SESSION['email'])['id']);
+            };
+            $database->update($_POST['attr']['type'], ['register' => json_encode($register),
+                                                        'attend'  => json_encode($attend)], ['id' => $_POST['attr']['tournament']]);
+            get_tournaments();
             break;
         case 'name':
             echo Util::getUser($_SESSION['email'])[$_POST['attr']['type']];

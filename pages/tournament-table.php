@@ -11,8 +11,6 @@ function get_tournament_table($type) {
             if($_SESSION['loggedin']) {
                 if(Util::getUser($_SESSION['email'])['rank'] < 3) {
                     $isDebater = true;
-                    $content .=
-    '       <th>Attending?</th>';
                 }
             }
             $content .=
@@ -32,14 +30,11 @@ function get_tournament_table($type) {
                         if(!in_array(Util::getUser($_SESSION['email'])['id'], $register)) {
                             $showButton = true;
                             $content .=
-    '               <button class="btn btn-sm btn-primary tourn-apply" name="apply" type="submit">Apply</button>
-                    <input type="hidden" name="id" value="'.$i['id'].'">
-    ';
+    '               <button id="'.$i['id'].'" class="btn btn-sm btn-primary tourn-reg" name="apply" type="submit">Apply</button>';
                         } else if(!in_array(Util::getUser($_SESSION['email'])['id'], $attend)) {
                             $showButton = true;
                             $content .=
-    '               <button class="btn btn-sm btn-primary tourn-reject" name="remove" type="submit">Can\'t go?</button>
-                    <input type="hidden" name="id" value="'.$i['id'].'">';
+    '               <button id="'.$i['id'].'" class="btn btn-sm btn-primary tourn-reg" name="remove" type="submit">Can\'t go?</button>';
                         }
 
                     }
@@ -57,9 +52,7 @@ function get_tournament_table($type) {
                     $content .=
     '           </td>
                 <td>' . $i['date'] . '</td>
-                <td>' . $i['location'] . '</td>' .
-                ($isDebater ? '<td>' . (in_array(Util::getUser($_SESSION['email'])['id'], $attend) ? 'Yes' : 'No') . '</td>' : '')
-                . '</tr>';
+                <td>' . $i['location'] . '</td>';
                 }
 
                 if($_SESSION['loggedin']) {
@@ -85,7 +78,7 @@ function get_tournament_table($type) {
                                 }
                                 $.ajax({
                                     type: "post",
-                                    url: "main.php",
+                                    url: "/main.php",
                                     data: {
                                         util: "add_tournament",
                                         attr: {
@@ -101,6 +94,34 @@ function get_tournament_table($type) {
                             };
                         });
                     </script>';
+                    }
+                    if($isDebater) {
+                        $content .= '
+                        <script>
+                        $(".tourn-reg").on("click", function(e) {
+                            e.preventDefault();
+                            var seg = $.url().segment(2);
+                            if(seg != undefined) {
+                                seg = seg.toLowerCase();
+                            } else {
+                                seg = "novice";
+                            }
+                            $.ajax({
+                                type: "post",
+                                url: "/main.php",
+                                data: {
+                                    util: "pick_tournament",
+                                    attr: {
+                                        reg: (($(this).text() == "Apply") ? "1" : "0"),
+                                        type: seg,
+                                        tournament: $(this).attr("id")
+                                    }
+                                }
+                            }).done(function(data) {
+                                $("#main").html(data);
+                            });
+                        });
+                        </script>';
                     }
                 }
 

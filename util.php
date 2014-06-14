@@ -72,8 +72,8 @@ class Util {
             $type = 'novice';
         }
         $database->insert($type, [
-                    'name' => $name,
-                    'date' => $date,
+                    'name'     => $name,
+                    'date'     => $date,
                     'location' => $loc,
                     'register' => '[]',
                     'attend'   => '[]']);
