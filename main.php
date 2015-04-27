@@ -19,8 +19,8 @@ if(!array_key_exists('loggedin', $_SESSION)) {
     $_SESSION['loggedin'] = false;
 }
 
-if(array_key_exists('page', $_POST)) {
-    switch($_POST['page']) {
+if(array_key_exists('page', $_GET)) {
+    switch($_GET['page']) {
         case 'home':
             get_home();
             break;
@@ -77,8 +77,8 @@ if(array_key_exists('page', $_POST)) {
             }
             break;
     }
-} else if(array_key_exists('util', $_POST)) {
-    switch($_POST['util']) {
+} else if(array_key_exists('util', $_GET)) {
+    switch($_GET['util']) {
         case 'add_tournament':
             Util::add_tournament($_POST['attr']['type'], $_POST['attr']['name'],
                             $_POST['attr']['date'], $_POST['attr']['location']);
