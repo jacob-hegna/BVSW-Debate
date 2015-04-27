@@ -33,7 +33,7 @@ function get_sign_in() {
             if($(this).text() == "Sign in") {
                 e.preventDefault();
                 $.ajax({
-                    type: "post",
+                    type: "pass",
                     url: "/main.php",
                     data: {
                         util: "sign_in",
@@ -55,7 +55,7 @@ function get_sign_in() {
                 if($("#pass-box").val() == $("#pass-conf").val()) {
                     if($("#num-box").val().length == 10) {
                         $.ajax({
-                            type: "post",
+                            type: "get",
                             url: "/main.php",
                             data: {
                                 util: "add_user",

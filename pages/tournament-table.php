@@ -77,7 +77,7 @@ function get_tournament_table($type) {
                                     seg = "novice";
                                 }
                                 $.ajax({
-                                    type: "post",
+                                    type: "get",
                                     url: "/main.php",
                                     data: {
                                         util: "add_tournament",
@@ -107,7 +107,7 @@ function get_tournament_table($type) {
                                 seg = "novice";
                             }
                             $.ajax({
-                                type: "post",
+                                type: "get",
                                 url: "/main.php",
                                 data: {
                                     util: "pick_tournament",

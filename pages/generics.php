@@ -24,7 +24,7 @@ class Tabbed {
             });
             $("#" + t).addClass("active");
             $.ajax({
-                type: "post",
+                type: "get",
                 url: "/main.php",
                 data: {
                     util: "'.$util.'",

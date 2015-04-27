@@ -35,7 +35,7 @@ function get_stand_table() {
             $(".checkout-stand").on("click", function(e) {
                 e.preventDefault();
                 $.ajax({
-                    type: "post",
+                    type: "get",
                     url: "/main.php",
                     data: {
                         util: "pick_stand",
@@ -51,7 +51,7 @@ function get_stand_table() {
             $(".return-stand").on("click", function(e) {
                 e.preventDefault();
                 $.ajax({
-                    type: "post",
+                    type: "get",
                     url: "/main.php",
                     data: {
                         util: "pick_stand",
@@ -118,7 +118,7 @@ function get_laptop_table() {
             $(".checkout-laptop").on("click", function(e) {
                 e.preventDefault();
                 $.ajax({
-                    type: "post",
+                    type: "get",
                     url: "/main.php",
                     data: {
                         util: "pick_laptop",
@@ -134,7 +134,7 @@ function get_laptop_table() {
             $(".return-laptop").on("click", function(e) {
                 e.preventDefault();
                 $.ajax({
-                    type: "post",
+                    type: "get",
                     url: "/main.php",
                     data: {
                         util: "pick_laptop",
