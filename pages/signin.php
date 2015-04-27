@@ -33,7 +33,7 @@ function get_sign_in() {
             if($(this).text() == "Sign in") {
                 e.preventDefault();
                 $.ajax({
-                    type: "pass",
+                    type: "get",
                     url: "/main.php",
                     data: {
                         util: "sign_in",
