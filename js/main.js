@@ -11,7 +11,7 @@ $(document).ready(function() {
                      'Debate Videos',
                      'New Computer Setup']};
     if($.ajax({
-        type: 'post',
+        type: 'get',
         url: '/main.php',
         data: {
             util: 'logged_in'
@@ -25,7 +25,7 @@ $(document).ready(function() {
                 resources
             ];
             acc_controls = [
-                {'name': 'Hello, ' + $.ajax({type:'post',url:'/main.php',data:{util:'name',attr:{type:'first'}},async:false}).responseText, 'id': 'profile'},
+                {'name': 'Hello, ' + $.ajax({type:'get',url:'/main.php',data:{util:'name',attr:{type:'first'}},async:false}).responseText, 'id': 'profile'},
                 {'name': 'Sign out', 'id': 'signout'}
             ];
         } else {
@@ -46,7 +46,7 @@ $(document).ready(function() {
     $('#loadbar').loadie();
 
     $.ajax({
-        type: 'post',
+        type: 'get',
         url: '/main.php',
         data: {
                 page: p
@@ -71,7 +71,7 @@ $(document).ready(function() {
         $('#loadbar').loadie(.1);
         $('.loadie').fadeIn();
         $.ajax({
-            type: 'post',
+            type: 'get',
             url: '/main.php',
             data: {
                 page: current
@@ -91,7 +91,7 @@ $(document).ready(function() {
     $('#sign-out').on('click', function(e) {
         e.preventDefault();
         $.ajax({
-            type: 'post',
+            type: 'get',
             url: '/main.php',
             data: {
                 util: 'sign_out'
@@ -107,7 +107,7 @@ $(document).ready(function() {
         $('.loadie').fadeIn();
         history.pushState({}, '', '/about/');
         $.ajax({
-            type: 'post',
+            type: 'get',
             url: '/main.php',
             data: {
                 page: 'about'
